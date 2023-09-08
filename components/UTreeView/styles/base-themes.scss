@@ -1,0 +1,40 @@
+@use "sass:color";
+@import 'tippy-base';
+
+@mixin custom-theme($theme, $primary, $secondary, $ternary, $icon, $highlight) {
+  $tooltip-theme-name: tooltip#{$theme};
+
+  .tippy-box[data-theme~=#{$tooltip-theme-name}] {
+    --bg-primary-color: #{$primary};
+    --bg-secondary-color: #{adjust-color($primary, $lightness: -11.6%)};
+    --folder-label-color: #{adjust-color($secondary, $lightness: 13.5%)};
+  }
+
+  .tooltipContent[data-theme=#{$tooltip-theme-name}] {
+    --bg-secondary-color: #{adjust-color($primary, $lightness: -11.6%)};
+  }
+
+  .just-tree-view-menu[data-theme=#{$theme}] {
+    $primary-color: $primary; //mainly used for background
+    $secondary-color: $secondary; //mainly used for text/label
+    $ternary-color: $ternary; //active/focused items
+    $icon-color: $icon; //icons
+    $highlight-color: $highlight; //highlight/selections
+
+    --bg-primary-color: #{$primary-color};
+    --bg-secondary-color: #{adjust-color($primary-color, $lightness: -11.6%)}; //#1a1a1a
+    --bg-ternary-color: #{adjust-color($primary-color, $lightness: -16.0%)}; //#0f0f0f
+    --text-color: #{$secondary-color};
+    --active-color: #{$ternary-color};
+    --scrollbar-color: #{adjust-color($primary-color, $lightness: 12%)}; //#575757
+    --active-scrollbar-color: #{adjust-color($primary-color, $lightness: 28.2%)}; //#808080
+    --arrow-color: #{adjust-color($primary-color, $lightness: 12%)}; //#575757
+    --arrow-active-color: #{adjust-color($primary-color, $lightness: 28.2%)}; //#808080
+    --leaf-color: #{$icon-color};
+    --item-hover-color: #{adjust-color($primary-color, $lightness: -8%)}; //#242424;
+    --label-color: #{adjust-color($secondary-color, $lightness: 13.5%)}; //#c0c0c0;
+    --highlighted-text-color: #{invert(adjust-color($secondary-color, $lightness: 13.5%))};
+    --highlighted-text-bkg: #{$highlight-color};
+    --separator-thickness: 1px;
+  }
+}
