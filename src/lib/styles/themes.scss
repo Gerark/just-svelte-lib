@@ -1,0 +1,56 @@
+@use "sass:color";
+
+$u-theme: (
+  name: "u",
+  primary: #383838,
+  text: #9e9e9e,
+  active-bkg: #0070e0,
+  icon: #77c5f9,
+  highlight: #8bc24a,
+);
+
+$dark-theme: (
+  name: "dark",
+  primary: #1a1a1a, // Dark background
+  text: #b0b0b0, // Text color
+  active-bkg: #ff5722, // Vibrant accent color
+  icon: #f2f2f2, // Light gray for icons
+  highlight: #4caf50, // Subtle green for highlights
+);
+
+$light-theme: (
+  name: "light",
+  primary: #f7f7f7, // Light background
+  text: #000000, // Text color
+  active-bkg: #44AAFFAA, // Background color for active elements
+  icon: #666666, // Dark gray for icons
+  highlight: #Ab550aAA, // Subtle green for highlights
+);
+
+$main-themes: ($u-theme $dark-theme $light-theme);
+
+@mixin just-custom-theme($theme) {
+  $primary: map-get($theme, primary);
+  $text: map-get($theme, primary);
+  $active: map-get($theme, active-bkg);
+  $icon: map-get($theme, icon);
+  $highlight: map-get($theme, highlight);
+  
+  //bkg
+  --just-bkg-color1: #{$primary};
+  --just-bkg-color2: #{adjust-color($primary, $lightness: -8%)};
+  --just-bkg-color3: #{adjust-color($primary, $lightness: -11.6%)};
+  --just-bkg-color4: #{adjust-color($primary, $lightness: -16.0%)};
+
+  --just-txt-color1: #{adjust-color($text, $lightness: 13.5%)};
+  --just-txt-color2: #{$text};
+
+  --just-active-color: #{$active};
+
+  //Scrollbar
+  --just-scrollbar-color: #{adjust-color($primary, $lightness: 12%)};
+  --just-active-scrollbar-color: #{adjust-color($primary, $lightness: 28.2%)};
+
+  //Highlights/Selection
+  --just-highlighted-text-bkg: #{$highlight};
+}

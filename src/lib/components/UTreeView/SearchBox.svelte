@@ -6,22 +6,23 @@
     $: hasValue = value && value !== "";
     $: icon = hasValue ? "xmark" : "search";
 
-    function reset()
-    {
+    function reset() {
         value = "";
     }
 </script>
 
 <div class="searchBox">
-    <input type="text" placeholder="{placeHolderText}" class="focusable" on:keydown
-           bind:this={inputElement}
-           bind:value={value}>
+    <input bind:this={inputElement} bind:value={value} class="focusable" on:keydown
+           placeholder="{placeHolderText}"
+           type="text">
     <i class="fa fa-{icon} searchBoxIcon" class:clickable={hasValue} on:click={reset}></i>
 </div>
 
 <style lang="scss">
   .searchBox {
     position: relative;
+    display: flex;
+    margin: 0 2px;
   }
 
   .searchBox input {
@@ -32,6 +33,7 @@
     text-align: left;
     padding-left: 30px;
     height: 20px;
+    width: 100%;
   }
 
   .searchBox input:hover {

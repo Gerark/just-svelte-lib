@@ -1,0 +1,15 @@
+@use "sass:color";
+@import 'tippy-base';
+@import 'base-themes.scss';
+@import '../../../styles/themes.scss';
+
+@each $theme in $main-themes {
+  @include custom-theme(
+      map-get($theme, name),
+      map-get($theme, primary),
+      map-get($theme, text),
+      map-get($theme, active-bkg),
+      map-get($theme, icon),
+      map-get($theme, highlight)
+  );
+}

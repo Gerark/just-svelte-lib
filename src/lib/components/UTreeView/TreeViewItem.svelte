@@ -1,7 +1,7 @@
 <script>
    import foldClick from "./foldClickAction.js"
    import { createEventDispatcher } from "svelte";
-   import { tooltip } from "../tippy-action/tooltip.js"
+   import { tooltip } from "../../actions/tippy/tooltip.js"
    import { followCursor } from "tippy.js"
 
    export let items = null;
@@ -21,7 +21,7 @@
    $: foldedIcon = folded ? "caret-right" : "caret-down";
    $: isFolder = Array.isArray(items);
    $: paddingLeft = depth * 10 + ( depth === 0 || isFolder ? 0 : 14 );
-   $: leafIcon = !icon || icon === "" ? "a" : icon;
+   $: leafIcon = !icon || icon === "" ? "square" : icon;
    $: appendToLabel = items && isFolder && appendItemsCount ? ` [${items.length}]` : "";
    let tooltipData = {}
    tooltipData = {
@@ -176,12 +176,14 @@
           color: var(--label-color);
           font-weight: bold;
           font-size: 14px;
+          user-select: none;
        }
 
        .leafLabel {
           color: var(--label-color);
           font-style: normal;
           font-size: 14px;
+          user-select: none;
        }
     }
 
