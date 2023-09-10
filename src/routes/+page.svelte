@@ -2,6 +2,7 @@
     import TreeViewMenu from "../lib/components/UTreeView/TreeViewMenu.svelte"
     import {writable} from "svelte/store";
     import TreeView from "../lib/components/UTreeView/TreeView.svelte";
+    import EditableList from "../lib/components/EditableList/EditableList.svelte";
 
     let array = [
         {
@@ -163,9 +164,15 @@
                 theme="u"
                 title="Test TreeViewMenu"></TreeViewMenu>
     </div>
+    TreeView Component
     <div class="treeview-container">
-        TreeView Component
         <TreeView appendItemsCount="{false}" items="{items}" showDescription="{false}" theme="u"></TreeView>
+    </div>
+    Editable List
+    <div class="treeview-container">
+        <EditableList items="{array}" let:item title="Editable List">
+            <div>{item.label}</div>
+        </EditableList>
     </div>
 </div>
 

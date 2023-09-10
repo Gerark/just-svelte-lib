@@ -27,6 +27,7 @@
 
 <style lang="scss">
   .just-tree-view {
+    box-sizing: border-box;
     background: var(--bg-secondary-color);
     padding: 0 5px 10px 0;
     height: 100%;
