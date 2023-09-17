@@ -1,8 +1,13 @@
 <script>
-    import TreeViewMenu from "../lib/components/UTreeView/TreeViewMenu.svelte"
+    import TreeViewMenu from "$lib/components/TreeViewMenu/TreeViewMenu.svelte"
     import {writable} from "svelte/store";
-    import TreeView from "../lib/components/UTreeView/TreeView.svelte";
+    import TreeView from "$lib/components/TreeView/TreeView.svelte";
     import EditableList from "../lib/components/EditableList/EditableList.svelte";
+    import Select from "$lib/components/Select/Select.svelte";
+    import Label from "$lib/components/Label/Label.svelte";
+    import Theme from "$lib/components/Theme/Theme.svelte";
+    import createTheme from "$lib/styles/createTheme.js";
+    import Background from "$lib/components/Background/Background.svelte";
 
     let array = [
         {
@@ -152,34 +157,94 @@
 
     let itemsStore = writable(array);
     let items = array;
+
+    let themes = [{name: "U", value: "u"}, {name: "DARK", value: "dark"}, {name: "LIGHT", value: "light"}]
+    let allThemes = [
+        {
+            label: "dark",
+            value: createTheme(
+                "dark",
+                "#383838",
+                "#9e9e9e",
+                "#0070e0",
+                "#77c5f9",
+                "#8bc24a"
+            )
+        },
+        {
+            label: "red",
+            value: createTheme(
+                "red",
+                "#883838",
+                "#889e9e",
+                "#8870e0",
+                "#88c5f9",
+                "#88c24a"
+            )
+        }
+    ];
+    let currentTheme = allThemes[0].value;
 </script>
 
-<div class="mainContainer">
-    TreeViewMenu Component
-    <div class="treeview-container">
-        <TreeViewMenu
-                descriptionText="Expand a Folder to see the available Actions"
-                itemsStore="{itemsStore}"
-                showDescription="{true}"
-                theme="u"
-                title="Test TreeViewMenu"></TreeViewMenu>
-    </div>
-    TreeView Component
-    <div class="treeview-container">
-        <TreeView appendItemsCount="{false}" items="{items}" showDescription="{false}" theme="u"></TreeView>
-    </div>
-    Editable List
-    <div class="treeview-container">
-        <EditableList items="{array}" let:item title="Editable List">
-            <div>{item.label}</div>
-        </EditableList>
-    </div>
+<div class="overlay">
+    <Theme theme="{currentTheme}">
+        <Background>
+            <div class="content">
+                <div class="mainContainer">
+                    <div class="themeProperty">
+                        <Label text="THEME: "></Label>
+                        <Select bind:value="{currentTheme}" items="{allThemes}"/>
+                    </div>
+
+                    <div class="treeview-container">
+                        <TreeViewMenu
+                                descriptionText="Expand a Folder to see the available items"
+                                itemsStore="{itemsStore}"
+                                showDescription="{true}"
+                                theme="{currentTheme.id}"
+                                title="Test TreeViewMenu"></TreeViewMenu>
+                    </div>
+
+                    <div class="treeview-container">
+                        <TreeView appendItemsCount="{false}" items="{items}" showDescription="{false}"
+                                  theme="{currentTheme.id}"></TreeView>
+                    </div>
+
+                    <div class="treeview-container">
+                        <EditableList items="{array}" let:item title="Editable List">
+                            <div>{item.label}</div>
+                        </EditableList>
+                    </div>
+                </div>
+            </div>
+        </Background>
+    </Theme>
 </div>
 
 <style lang="scss">
+  .overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
   .treeview-container {
     width: 300px;
     height: 300px;
+  }
+
+  .themeProperty {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 5px;
+    width: 300px;
   }
 
   .mainContainer {

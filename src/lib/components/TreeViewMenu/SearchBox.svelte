@@ -26,9 +26,9 @@
   }
 
   .searchBox input {
-    background: var(--bg-ternary-color);
+    background: var(--theme-just-primary3);
     border-radius: 15px;
-    color: var(--text-color);
+    color: var(--theme-just-text2);
     border: 1px solid transparent;
     text-align: left;
     padding-left: 30px;
@@ -37,12 +37,12 @@
   }
 
   .searchBox input:hover {
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--theme-just-text2);
     box-shadow: none;
   }
 
   .searchBox input:focus {
-    border: 1px solid var(--active-color);
+    border: 1px solid var(--theme-just-active);
     box-shadow: none;
   }
 
@@ -50,9 +50,10 @@
     position: absolute;
     top: 12.5%;
     left: 8px;
+    color: var(--theme-just-text2);
   }
 
   .clickable:hover {
-    color: var(--active-color);
+    color: var(--theme-just-active);
   }
 </style>

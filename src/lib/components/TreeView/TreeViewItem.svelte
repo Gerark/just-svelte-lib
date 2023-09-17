@@ -1,8 +1,7 @@
 <script>
-   import foldClick from "./foldClickAction.js"
+   import foldClick from "../../actions/foldClick.js"
    import { createEventDispatcher } from "svelte";
-   import { tooltip } from "../../actions/tippy/tooltip.js"
-   import { followCursor } from "tippy.js"
+   import { justTooltip } from "../../actions/tooltip.js"
 
    export let items = null;
    export let label;
@@ -23,39 +22,8 @@
    $: paddingLeft = depth * 10 + ( depth === 0 || isFolder ? 0 : 14 );
    $: leafIcon = !icon || icon === "" ? "square" : icon;
    $: appendToLabel = items && isFolder && appendItemsCount ? ` [${items.length}]` : "";
-   let tooltipData = {}
-   tooltipData = {
-      content: `<div class="tooltipContent" data-theme="tooltip${theme}">${description}</div>`,
-      theme: "tooltip" + theme,
-      placement:"bottom-start",
-      animation: 'fade',
-      duration:[250, 0],
-      delay:[250, 0],
-      offset: [15, 15],
-      allowHTML:true,
-      plugins: [followCursor],
-      followCursor: true,
-      popperOptions: {
-         strategy: "fixed",
-         modifiers: [ {
-            name: "preventOverflow",
-            enabled: true,
-            options: {
-               mainAxis: true,
-               altAxis: true
-            }
-         }, {
-            name: "flip",
-            enabled: false
-         }]
-      }
-   };
 
-   let tooltipAction = () => {};
-   $: if(!isFolder)
-   {
-      tooltipAction = tooltip;
-   }
+   $: tooltipAction = !isFolder ? justTooltip : () => {};
 
    function toggleFold()
    {
@@ -103,7 +71,7 @@
    }
 </script>
 
-<div class="tree-view-item" style="--padding-left : {paddingLeft}px" use:tooltipAction={tooltipData}>
+<div class="tree-view-item" style="--padding-left : {paddingLeft}px" use:tooltipAction={description}>
    <div class="header-bkg focusable" tabindex="{-1}" role="button" on:keydown={onKeyDown}  bind:this={headerElement}
         use:foldClick={[clickState, isFolder ? 2 : 1, isFolder ? toggleFold : leafSelected]}>
       <div class="header" class:leafHeader="{!isFolder}">
@@ -147,8 +115,8 @@
       padding-left: var(--padding-left);
 
        :global(.highlightedLabel) {
-          background: var(--highlighted-text-bkg);
-          color: var(--highlighted-text-color);
+          background: var(--theme-just-highlight);
+          color: var(--theme-just-highlight-text);
        }
 
        .icon {
@@ -156,7 +124,7 @@
           border: none;
           margin: 0;
           padding: 0;
-          color: var(--arrow-color);
+          color: var(--theme-just-text2);
           width: 12px;
           box-shadow: none;
        }
@@ -164,23 +132,18 @@
        .leafIcon {
           width: 16px;
           text-align: center;
-          color: var(--leaf-color);
-       }
-
-       .foldIcon:hover {
-          color: var(--arrow-active-color);
-          box-shadow: none;
+          color: var(--theme-just-icon);
        }
 
        .folderLabel {
-          color: var(--label-color);
+          color: var(--theme-just-text2);
           font-weight: bold;
           font-size: 14px;
           user-select: none;
        }
 
        .leafLabel {
-          color: var(--label-color);
+          color: var(--theme-just-text2);
           font-style: normal;
           font-size: 14px;
           user-select: none;
@@ -192,11 +155,11 @@
     }
 
     .header-bkg:hover {
-      background-color: var(--item-hover-color)
+      background-color: var(--theme-just-primary2)
     }
 
     .header-bkg:focus {
-      background-color: var(--active-color);
+      background-color: var(--theme-just-active);
       outline: none;
     }
   }

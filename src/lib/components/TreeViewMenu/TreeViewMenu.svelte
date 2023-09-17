@@ -1,12 +1,11 @@
 <script>
-    import TreeView from "./TreeView.svelte";
+    import TreeView from "../TreeView/TreeView.svelte";
     import SearchBox from "./SearchBox.svelte";
-    import Separator from "./Separator.svelte";
+    import Label from "../Label/Label.svelte";
     import {onMount, tick} from "svelte";
     import {derived, writable} from "svelte/store";
     import filterItems from "./ItemFilterer.js";
     import focusNavigation from "./focusNavigationAction.js";
-    import "./styles/themes.scss";
 
     export let title = "";
 
@@ -40,9 +39,9 @@
     }
 </script>
 
-<div class="just-tree-view-menu" data-theme="{theme}" role="button"
+<div class="just-tree-view-menu" role="button"
      tabindex="{-1}" use:focusNavigation={{ getInputElement: () => inputElement }}>
-    <span class="title">{title}</span>
+    <Label align="left" text="{title}"></Label>
     <SearchBox bind:inputElement={inputElement} bind:value={$filter}
                placeHolderText="Search"></SearchBox>
     <TreeView {appendItemsCount} {descriptionText} items="{$filteredItems}" on:leafSelected {showDescription}
@@ -56,23 +55,18 @@
     display: flex;
     flex-direction: column;
     flex-flow: column;
-    background-color: var(--bg-primary-color);
+    background-color: var(--theme-just-primary);
     gap: 5px;
     height: 100%;
     width: 100%;
     padding: 5px;
-    color: var(--text-color);
+    color: var(--theme-just-text2);
 
     .title {
       text-align: left;
       font-size: 18px;
-      border-bottom: 2px solid var(--bg-secondary-color);
+      border-bottom: 2px solid var(--theme-just-primary3);
       user-select: none;
-    }
-
-    .just-separator {
-      --thickness: 1px;
-      --color: var(--scrollbar-color);
     }
   }
 </style>
