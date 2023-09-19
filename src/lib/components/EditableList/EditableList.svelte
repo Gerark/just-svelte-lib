@@ -1,4 +1,6 @@
 <script>
+    import ButtonIcon from "$lib/components/Buttons/ButtonIcon.svelte";
+
     export let title = "";
     export let items = [];
 </script>
@@ -6,8 +8,8 @@
 <div class="just-editable-list">
     <div class="header">
         <div class="title">{title}</div>
-        <button class="fa fa-plus"></button>
-        <button class="fa fa-trash"></button>
+        <ButtonIcon icon="plus" size="s"></ButtonIcon>
+        <ButtonIcon icon="trash" size="s"></ButtonIcon>
     </div>
     <div class="list">
         {#each items as item}
@@ -16,9 +18,9 @@
                 <div class="content">
                     <slot {item}></slot>
                 </div>
-                <button class="fa fa-copy"></button>
-                <button class="fa fa-trash"></button>
-                <button class="fa fa-add"></button>
+                <ButtonIcon icon="copy" size="s"></ButtonIcon>
+                <ButtonIcon icon="trash" size="s"></ButtonIcon>
+                <ButtonIcon icon="plus" size="s"></ButtonIcon>
             </div>
         {/each}
     </div>

@@ -4,7 +4,7 @@
     export let inputElement;
 
     $: hasValue = value && value !== "";
-    $: icon = hasValue ? "xmark" : "search";
+    $: icon = hasValue ? "times" : "search";
 
     function reset() {
         value = "";
@@ -15,7 +15,7 @@
     <input bind:this={inputElement} bind:value={value} class="focusable" on:keydown
            placeholder="{placeHolderText}"
            type="text">
-    <i class="fa fa-{icon} searchBoxIcon" class:clickable={hasValue} on:click={reset}></i>
+    <i class="fas fa-{icon} searchBoxIcon" class:clickable={hasValue} on:click={reset}></i>
 </div>
 
 <style lang="scss">

@@ -103,6 +103,7 @@
 <style lang="scss">
   .tree-view-item {
     text-align: right;
+     color: var(--theme-just-text2);
 
     .header {
       display: flex;
@@ -116,7 +117,7 @@
 
        :global(.highlightedLabel) {
           background: var(--theme-just-highlight);
-          color: var(--theme-just-highlight-text);
+          color: var(--theme-just-textHighlight);
        }
 
        .icon {
@@ -136,14 +137,12 @@
        }
 
        .folderLabel {
-          color: var(--theme-just-text2);
           font-weight: bold;
           font-size: 14px;
           user-select: none;
        }
 
        .leafLabel {
-          color: var(--theme-just-text2);
           font-style: normal;
           font-size: 14px;
           user-select: none;
@@ -160,6 +159,7 @@
 
     .header-bkg:focus {
       background-color: var(--theme-just-active);
+      color: var(--theme-just-textHighlight);
       outline: none;
     }
   }

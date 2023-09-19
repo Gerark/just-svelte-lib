@@ -85,7 +85,8 @@
       }
 
       .item.selected {
-        border: 1px solid var(--theme-just-active);
+        background: var(--theme-just-active);
+        color: var(--theme-just-textHighlight);
       }
     }
 

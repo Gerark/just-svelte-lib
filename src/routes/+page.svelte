@@ -6,8 +6,9 @@
     import Select from "$lib/components/Select/Select.svelte";
     import Label from "$lib/components/Label/Label.svelte";
     import Theme from "$lib/components/Theme/Theme.svelte";
-    import createTheme from "$lib/styles/createTheme.js";
+    import {createDefaultThemes} from "$lib/styles/createTheme.js";
     import Background from "$lib/components/Background/Background.svelte";
+    import ButtonIcon from "$lib/components/Buttons/ButtonIcon.svelte";
 
     let array = [
         {
@@ -158,31 +159,7 @@
     let itemsStore = writable(array);
     let items = array;
 
-    let themes = [{name: "U", value: "u"}, {name: "DARK", value: "dark"}, {name: "LIGHT", value: "light"}]
-    let allThemes = [
-        {
-            label: "dark",
-            value: createTheme(
-                "dark",
-                "#383838",
-                "#9e9e9e",
-                "#0070e0",
-                "#77c5f9",
-                "#8bc24a"
-            )
-        },
-        {
-            label: "red",
-            value: createTheme(
-                "red",
-                "#883838",
-                "#889e9e",
-                "#8870e0",
-                "#88c5f9",
-                "#88c24a"
-            )
-        }
-    ];
+    let allThemes = createDefaultThemes();
     let currentTheme = allThemes[0].value;
 </script>
 
@@ -194,6 +171,7 @@
                     <div class="themeProperty">
                         <Label text="THEME: "></Label>
                         <Select bind:value="{currentTheme}" items="{allThemes}"/>
+                        <ButtonIcon icon="trash" size="s"></ButtonIcon>
                     </div>
 
                     <div class="treeview-container">

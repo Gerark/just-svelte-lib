@@ -1,5 +1,7 @@
 <script>
     import TreeViewItem from "./TreeViewItem.svelte";
+    import Label from "$lib/components/Label/Label.svelte";
+    import Separator from "$lib/components/Separator/Separator.svelte";
 
     export let items = [];
     export let theme = "";
@@ -11,8 +13,8 @@
 <div class="just-tree-view">
     <div class="content">
         {#if showDescription}
-            <div class="description">{descriptionText}</div>
-            <div class="just-separator"></div>
+            <Label text="{descriptionText}"></Label>
+            <Separator></Separator>
         {/if}
         <div>
             {#each items as item (item.id)}
@@ -80,11 +82,6 @@
       background-color: var(--theme-just-primary5);
       border: 0 solid transparent;
       box-shadow: none;
-    }
-
-    .just-separator {
-      border-bottom: 1px solid var(--theme-just-primary4);
-      margin: 0 14px;
     }
   }
 </style>

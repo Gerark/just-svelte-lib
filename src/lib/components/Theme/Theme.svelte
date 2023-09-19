@@ -1,5 +1,5 @@
 <script>
-    import {setContext, onMount} from "svelte"
+    import {setContext} from "svelte"
     import {writable} from "svelte/store"
     import updateTheme from "./updateTheme.js"
 
@@ -14,10 +14,14 @@
     $: updateTheme(thisElement, theme);
 </script>
 
-<span bind:this={thisElement}>
+<span bind:this={thisElement} class="themeRoot">
     <slot>
     </slot>
 </span>
 
 <style lang="scss">
+  .themeRoot {
+    color: var(--theme-just-text2);
+    font-family: "Lucida Sans", serif;
+  }
 </style>

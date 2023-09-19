@@ -41,7 +41,7 @@
 
 <div class="just-tree-view-menu" role="button"
      tabindex="{-1}" use:focusNavigation={{ getInputElement: () => inputElement }}>
-    <Label align="left" text="{title}"></Label>
+    <Label align="left" selectable="{false}" text="{title}"></Label>
     <SearchBox bind:inputElement={inputElement} bind:value={$filter}
                placeHolderText="Search"></SearchBox>
     <TreeView {appendItemsCount} {descriptionText} items="{$filteredItems}" on:leafSelected {showDescription}

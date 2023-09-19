@@ -2,6 +2,7 @@
     export let text = "";
     export let style = "primary";
     export let align = "center";
+    export let selectable = false;
 </script>
 
 <span
@@ -9,6 +10,7 @@
         class:just-label-secondary="{style === 'secondary'}"
         class:just-label-ternary="{style === 'ternary'}"
         style:text-align="{align}"
+        style:user-select="{selectable ? 'default' : 'none'}"
 >{text}</span>
 
 <style lang="scss">
