@@ -60,7 +60,7 @@
                     <TreeView appendItemsCount="{false}" descriptionText="Description" height="300px"
                               items="{$fakeData}" showDescription="{true}"></TreeView>
                     <Separator width="{2}"></Separator>
-                    <EditableList height="1400px" items="{$fakeData}" let:index on:copy="{copyListItem}"
+                    <EditableList height="300px" items="{$fakeData}" let:index on:copy="{copyListItem}"
                                   on:create="{createListItem}"
                                   on:listUpdated={onListUpdated}
                                   title="Editable List">

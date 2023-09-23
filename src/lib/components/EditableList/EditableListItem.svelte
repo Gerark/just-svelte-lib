@@ -37,7 +37,7 @@
     gap: var(--theme-just-gap-default);
 
     .grip {
-      color: var(--theme-just-txt-default-color);
+      color: var(--theme-just-txt-inactive-color);
       user-select: none;
     }
 
@@ -50,6 +50,10 @@
 
       .grip {
         color: var(--theme-just-txt-default-color);
+
+        &:hover {
+          color: var(--theme-just-icon-hover-color);
+        }
       }
     }
   }

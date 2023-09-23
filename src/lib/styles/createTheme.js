@@ -99,6 +99,7 @@ function addComponentProperties(properties) {
 	properties['bg-hover-color'] = Color(properties['primary']).alpha(0.1);
 
 	properties['txt-default-color'] = properties['on-surface'];
+	properties['txt-inactive-color'] = Color(properties['on-surface']).alpha(0.5);
 	properties['txt-selected-color'] = properties['on-primary'];
 	properties['txt-highlighted-color'] = properties['on-tertiary'];
 
