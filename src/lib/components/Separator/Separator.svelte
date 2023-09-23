@@ -1,13 +1,15 @@
 <script>
-
+    export let width = 1;
 </script>
 
-<div class="just-separator">
+<div class="just-separator ...{$$restProps}"
+     style:border-width="{width}px">
 </div>
 
 <style lang="scss">
-  .just-separator {
-    border-bottom: 1px solid var(--theme-just-primary4);
-    margin: 0 14px;
+  div {
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--theme-just-sep-color);
   }
 </style>

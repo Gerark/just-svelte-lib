@@ -5,18 +5,16 @@
     $: buttonSize = size === "l" ? 40 : size === "s" ? 24 : 32;
 </script>
 
-<button on:click style:--font-size="{buttonSize/2}px" style:--size="{buttonSize}px">
+<button on:click style:font-size="{buttonSize/2}px" style:height="{buttonSize}px" style:width="{buttonSize}px">
     <i class="fa fa-{icon}"></i>
 </button>
 
 <style lang="scss">
   button {
-    color: var(--theme-just-text);
-    background: var(--theme-just-primary3);
-    border: 2px solid var(--theme-just-primary3);
-    width: var(--size);
-    height: var(--size);
-    font-size: var(--font-size);
+    color: var(--theme-just-txt-button-color);
+    background: var(--theme-just-bg-button-color);
+    border: var(--theme-just-border-width) solid var(--theme-just-border-color);
+    border-radius: var(--theme-just-border-radius);
     text-align: center;
 
     i {
@@ -27,26 +25,13 @@
     }
 
     &:hover {
-      background: var(--theme-just-primary2);
-      color: var(--theme-just-text2);
-
-      i {
-        animation: zoomIn 0.25s ease-out 0s 1 normal forwards;
-      }
+      background: var(--theme-just-bg-button-hover-color);
+      color: var(--theme-just-txt-button-color);
     }
 
     &:active {
-      border: 2px solid var(--theme-just-active);
+      border: var(--theme-just-border-width) solid var(--theme-just-border-active-color);
       scale: 0.9;
-    }
-  }
-
-  @keyframes zoomIn {
-    from {
-      scale: 1;
-    }
-    to {
-      scale: 1.1;
     }
   }
 </style>

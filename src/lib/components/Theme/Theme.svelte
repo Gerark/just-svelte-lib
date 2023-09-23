@@ -6,7 +6,7 @@
     export let theme = {};
     export let thisElement = null;
 
-    let themeStore = writable({});
+    let themeStore = writable(theme);
 
     setContext("currentTheme", themeStore);
 
@@ -14,14 +14,13 @@
     $: updateTheme(thisElement, theme);
 </script>
 
-<span bind:this={thisElement} class="themeRoot">
+<span bind:this={thisElement} class="just-root">
     <slot>
     </slot>
 </span>
 
 <style lang="scss">
-  .themeRoot {
-    color: var(--theme-just-text2);
-    font-family: "Lucida Sans", serif;
+  .just-root {
+    font-family: var(--theme-just-font-family);
   }
 </style>

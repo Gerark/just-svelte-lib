@@ -1,233 +1,76 @@
 <script>
     import TreeViewMenu from "$lib/components/TreeViewMenu/TreeViewMenu.svelte"
-    import {writable} from "svelte/store";
     import TreeView from "$lib/components/TreeView/TreeView.svelte";
     import EditableList from "../lib/components/EditableList/EditableList.svelte";
     import Select from "$lib/components/Select/Select.svelte";
     import Label from "$lib/components/Label/Label.svelte";
     import Theme from "$lib/components/Theme/Theme.svelte";
-    import {createDefaultThemes} from "$lib/styles/createTheme.js";
-    import Background from "$lib/components/Background/Background.svelte";
+    import Panel from "$lib/components/Layout/Panel.svelte";
     import ButtonIcon from "$lib/components/Buttons/ButtonIcon.svelte";
+    import Flex from "$lib/components/Layout/Flex.svelte";
+    import Overlay from "$lib/components/Layout/Overlay.svelte";
+    import Separator from "$lib/components/Separator/Separator.svelte";
+    import TextBox from "$lib/components/TextBox/TextBox.svelte";
 
-    let array = [
-        {
-            "id": 0,
-            "label": "HTML",
-            "items": [
-                {
-                    "id": 8,
-                    "label": "HTML Basics",
-                    "items": [
-                        {
-                            "id": 16,
-                            "label": "HTML Tags",
-                            "description": "This covers basic HTML tags."
-                        },
-                        {
-                            "id": 17,
-                            "label": "HTML Structure",
-                            "description": "This explains the structure of an HTML document."
-                        }
-                    ]
-                },
-                {
-                    "id": 9,
-                    "label": "HTML Forms",
-                    "items": [
-                        {
-                            "id": 18,
-                            "label": "Form Elements",
-                            "description": "This covers HTML form elements."
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 1,
-            "label": "CSS",
-            "items": [
-                {
-                    "id": 10,
-                    "label": "CSS Basics",
-                    "items": [
-                        {
-                            "id": 19,
-                            "label": "Selectors",
-                            "description": "This explains CSS selectors."
-                        },
-                        {
-                            "id": 20,
-                            "label": "Properties",
-                            "description": "This covers CSS properties."
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "label": "JavaScript",
-            "items": [
-                {
-                    "id": 11,
-                    "label": "JavaScript Basics",
-                    "items": [
-                        {
-                            "id": 21,
-                            "label": "Variables",
-                            "description": "This covers JavaScript variables."
-                        },
-                        {
-                            "id": 22,
-                            "label": "Functions",
-                            "description": "This explains JavaScript functions."
-                        }
-                    ]
-                },
-                {
-                    "id": 12,
-                    "label": "JavaScript DOM",
-                    "items": [
-                        {
-                            "id": 23,
-                            "label": "DOM Manipulation",
-                            "description": "This covers manipulating the Document Object Model with JavaScript."
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "label": "Responsive Design",
-            "items": [
-                {
-                    "id": 13,
-                    "label": "Media Queries",
-                    "description": "This explains CSS media queries for responsive design."
-                },
-                {
-                    "id": 14,
-                    "label": "Flexbox",
-                    "description": "This covers CSS Flexbox layout."
-                },
-                {
-                    "id": 15,
-                    "label": "Grid Layout",
-                    "description": "This covers CSS Grid layout for responsive design.",
-                    "items": [
-                        {
-                            "id": 13,
-                            "label": "Media Queries",
-                            "description": "This explains CSS media queries for responsive design."
-                        },
-                        {
-                            "id": 14,
-                            "label": "Flexbox",
-                            "description": "This covers CSS Flexbox layout."
-                        },
-                        {
-                            "id": 15,
-                            "label": "Grid Layout",
-                            "description": "This covers CSS Grid layout for responsive design.",
-                            "items": [
-                                {
-                                    "id": 13,
-                                    "label": "Media Queries",
-                                    "description": "This explains CSS media queries for responsive design."
-                                },
-                                {
-                                    "id": 14,
-                                    "label": "Flexbox",
-                                    "description": "This covers CSS Flexbox layout."
-                                },
-                                {
-                                    "id": 15,
-                                    "label": "Grid Layout",
-                                    "description": "This covers CSS Grid layout for responsive design."
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
+    import {currentTheme, allThemes, fakeData} from "../appStore.js";
 
-    let itemsStore = writable(array);
-    let items = array;
+    function resetTheme() {
+        currentTheme.set(($allThemes)[0].value);
+    }
 
-    let allThemes = createDefaultThemes();
-    let currentTheme = allThemes[0].value;
+    function onListUpdated(ev) {
+        fakeData.set(ev.detail);
+    }
+
+    function createListItem(ev) {
+        ev.detail.result = {label: "New Item", id: generateQuickGUID(), items: []};
+    }
+
+    function copyListItem(ev) {
+        let newItem = structuredClone(ev.detail.item);
+        newItem.id = generateQuickGUID();
+        ev.detail.result = newItem;
+    }
+
+    function generateQuickGUID() {
+        return Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15);
+    }
 </script>
 
-<div class="overlay">
-    <Theme theme="{currentTheme}">
-        <Background>
-            <div class="content">
-                <div class="mainContainer">
-                    <div class="themeProperty">
+<div>
+    <Overlay>
+        <Theme theme="{$currentTheme}">
+            <Panel>
+                <Flex direction="vertical" gap="10px" width="400px">
+                    <Flex direction="horizontal" height="24px" width="100%">
                         <Label text="THEME: "></Label>
-                        <Select bind:value="{currentTheme}" items="{allThemes}"/>
-                        <ButtonIcon icon="trash" size="s"></ButtonIcon>
-                    </div>
+                        <Select bind:value="{$currentTheme}" items="{$allThemes}"/>
+                        <ButtonIcon icon="sync" on:click={resetTheme} size="s"></ButtonIcon>
+                    </Flex>
+                    <Separator width="{2}"></Separator>
+                    <TreeViewMenu
+                            descriptionText="Expand a Folder to see the available items"
+                            itemsStore="{fakeData}"
+                            maxHeight="300px"
+                            showDescription="{true}"
+                            title="Test TreeViewMenu"></TreeViewMenu>
 
-                    <div class="treeview-container">
-                        <TreeViewMenu
-                                descriptionText="Expand a Folder to see the available items"
-                                itemsStore="{itemsStore}"
-                                showDescription="{true}"
-                                theme="{currentTheme.id}"
-                                title="Test TreeViewMenu"></TreeViewMenu>
-                    </div>
-
-                    <div class="treeview-container">
-                        <TreeView appendItemsCount="{false}" items="{items}" showDescription="{false}"
-                                  theme="{currentTheme.id}"></TreeView>
-                    </div>
-
-                    <div class="treeview-container">
-                        <EditableList items="{array}" let:item title="Editable List">
-                            <div>{item.label}</div>
-                        </EditableList>
-                    </div>
-                </div>
-            </div>
-        </Background>
-    </Theme>
+                    <Separator width="{2}"></Separator>
+                    <TreeView appendItemsCount="{false}" descriptionText="Description" height="300px"
+                              items="{$fakeData}" showDescription="{true}"></TreeView>
+                    <Separator width="{2}"></Separator>
+                    <EditableList height="1400px" items="{$fakeData}" let:index on:copy="{copyListItem}"
+                                  on:create="{createListItem}"
+                                  on:listUpdated={onListUpdated}
+                                  title="Editable List">
+                        <TextBox bind:value={$fakeData[index].label} canReset="{false}"></TextBox>
+                    </EditableList>
+                </Flex>
+            </Panel>
+        </Theme>
+    </Overlay>
 </div>
 
 <style lang="scss">
-  .overlay {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  .content {
-    padding: 10px;
-  }
-
-  .treeview-container {
-    width: 300px;
-    height: 300px;
-  }
-
-  .themeProperty {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap: 5px;
-    width: 300px;
-  }
-
-  .mainContainer {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 5px;
-  }
 </style>

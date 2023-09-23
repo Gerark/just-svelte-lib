@@ -1,0 +1,42 @@
+.just-root {
+
+  .dragged-item {
+    position: absolute;
+    z-index: 9000;
+    animation: top 0.125s;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    border: 0 solid transparent;
+    margin: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border: 0 solid transparent;
+    box-shadow: none;
+    margin: 5px 0 0 0;
+  }
+
+  ::-webkit-scrollbar-track:hover {
+    border: 0 solid transparent;
+    box-shadow: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--theme-just-scroll-color);
+    border: 0 solid transparent;
+    box-shadow: none;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--theme-just-scroll-hover-color);
+    border: 0 solid transparent;
+    box-shadow: none;
+  }
+
+  .just-highlighted-text {
+    background: var(--theme-just-bg-highlighted-text-color);
+    color: var(--theme-just-txt-highlighted-color);
+  }
+}

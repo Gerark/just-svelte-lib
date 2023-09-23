@@ -14,10 +14,10 @@
      * @type {import("svelte/store").Writable<any[]>}
      */
     export let itemsStore;
-    export let theme = "";
     export let appendItemsCount = false;
     export let showDescription = false;
     export let descriptionText = "";
+    export let maxHeight = "100%";
 
     let inputElement;
 
@@ -39,13 +39,13 @@
     }
 </script>
 
-<div class="just-tree-view-menu" role="button"
+<div class="just-tree-view-menu" role="button" style:max-height="{maxHeight}"
      tabindex="{-1}" use:focusNavigation={{ getInputElement: () => inputElement }}>
     <Label align="left" selectable="{false}" text="{title}"></Label>
     <SearchBox bind:inputElement={inputElement} bind:value={$filter}
                placeHolderText="Search"></SearchBox>
-    <TreeView {appendItemsCount} {descriptionText} items="{$filteredItems}" on:leafSelected {showDescription}
-              theme="{theme}"></TreeView>
+    <TreeView {appendItemsCount} {descriptionText} items="{$filteredItems}" on:leafSelected
+              {showDescription}></TreeView>
 </div>
 
 <style lang="scss">
@@ -55,17 +55,16 @@
     display: flex;
     flex-direction: column;
     flex-flow: column;
-    background-color: var(--theme-just-primary);
+    background-color: var(--theme-just-bg-component-color);
     gap: 5px;
     height: 100%;
     width: 100%;
     padding: 5px;
-    color: var(--theme-just-text2);
+    color: var(--theme-just-txt-default-color);
 
     .title {
       text-align: left;
       font-size: 18px;
-      border-bottom: 2px solid var(--theme-just-primary3);
       user-select: none;
     }
   }
