@@ -6,7 +6,8 @@
     export let inputElement;
 </script>
 
-<TextBox bind:inputElement={inputElement} bind:value={value} canReset="{true}" defaultIcon="search"
+<TextBox bind:inputElement={inputElement} bind:value={value} canReset="{true}" class="{$$restProps.class}"
+         defaultIcon="search"
          {placeHolderText}></TextBox>
 
 <style lang="scss">

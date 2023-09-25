@@ -6,6 +6,10 @@
     import {derived, writable} from "svelte/store";
     import filterItems from "./ItemFilterer.js";
     import focusNavigation from "./focusNavigationAction.js";
+    import HeaderBox from "$lib/components/Layout/HeaderBox.svelte";
+    import Flex from "$lib/components/Layout/Flex.svelte";
+    import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
+    import TreeViewItem from "$lib/components/TreeView/TreeViewItem.svelte";
 
     export let title = "";
 
@@ -14,19 +18,18 @@
      * @type {import("svelte/store").Writable<any[]>}
      */
     export let itemsStore;
-    export let appendItemsCount = false;
     export let showDescription = false;
     export let descriptionText = "";
-    export let maxHeight = "100%";
+    export let height = "100%";
 
     let inputElement;
 
-    const filter = writable("");
-    const filteredItems = derived([filter, itemsStore], ([depFilter, depActions]) => {
-        if (depFilter === "") {
-            return depActions;
+    const filterStore = writable("");
+    const filteredItems = derived([filterStore, itemsStore], ([filter, items]) => {
+        if (filter === "") {
+            return items;
         }
-        return filterItems(depActions, depFilter);
+        return filterItems(items, filter);
     });
 
     onMount(async () => {
@@ -39,33 +42,34 @@
     }
 </script>
 
-<div class="just-tree-view-menu" role="button" style:max-height="{maxHeight}"
-     tabindex="{-1}" use:focusNavigation={{ getInputElement: () => inputElement }}>
-    <Label align="left" selectable="{false}" text="{title}"></Label>
-    <SearchBox bind:inputElement={inputElement} bind:value={$filter}
-               placeHolderText="Search"></SearchBox>
-    <TreeView {appendItemsCount} {descriptionText} items="{$filteredItems}" on:leafSelected
-              {showDescription}></TreeView>
-</div>
+<HeaderBox {height} {title}>
+    <svelte:fragment slot="header">
+        <Flex direction="horizontal">
+            <Label align="left">{title}</Label>
+        </Flex>
+        <SearchBox bind:inputElement={inputElement} bind:value={$filterStore} placeHolderText="Search"></SearchBox>
+    </svelte:fragment>
+    <div class="just-tree-view-menu" slot="content" use:focusNavigation={{ getInputElement: () => inputElement }}>
+        <TreeView {descriptionText} items="{$filteredItems}" let:nodeItem on:folderselected
+                  on:leafselected {showDescription}>
+            <slot name="item" {nodeItem} slot="item">
+                <DefaultTreeViewItemContent item="{nodeItem}"></DefaultTreeViewItemContent>
+            </slot>
+        </TreeView>
+    </div>
+</HeaderBox>
 
 <style lang="scss">
   .just-tree-view-menu {
-    box-sizing: border-box;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    flex-flow: column;
-    background-color: var(--theme-just-bg-component-color);
-    gap: 5px;
-    height: 100%;
     width: 100%;
-    padding: 5px;
-    color: var(--theme-just-txt-default-color);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--theme-just-gap-default);
+  }
 
-    .title {
-      text-align: left;
-      font-size: 18px;
-      user-select: none;
-    }
+  .title {
+    text-align: left;
+    font-size: 18px;
+    user-select: none;
   }
 </style>

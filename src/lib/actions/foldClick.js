@@ -10,38 +10,34 @@
  *
  * @param root0."2"
  */
-export default function foldClick(node, [clickState, neededClick, callback])
-{
-    if (clickState.count === undefined || clickState.timer === undefined)
-    {
-        clickState.count = 0;
-        clickState.timer = null;
-    }
-    const onClick = (e) =>
-    {
-        clickState.count++;
-        if (neededClick === clickState.count)
-        {
-            clearTimeout(clickState.timer);
-            clickState.count = 0;
-            callback();
-        }
-        else if (clickState.count === 1)
-        {
-            clickState.timer = setTimeout(() =>
-            {
-                clickState.count = 0;
-            }, 400);
-        }
-        e.stopPropagation();
-    };
+export default function foldClick(node, [clickState, neededClick, callback, singleClickCallback]) {
+	if (clickState.count === undefined || clickState.timer === undefined) {
+		clickState.count = 0;
+		clickState.timer = null;
+	}
+	const onClick = (e) => {
+		clickState.count++;
+		if (neededClick === clickState.count) {
+			clearTimeout(clickState.timer);
+			clickState.count = 0;
+			callback();
+		} else if (clickState.count === 1) {
+			if (singleClickCallback) {
+				singleClickCallback();
+			}
 
-    node.addEventListener("click", onClick);
+			clickState.timer = setTimeout(() => {
+				clickState.count = 0;
+			}, 400);
+		}
+		e.stopPropagation();
+	};
 
-    return {
-        destroy()
-        {
-            node.removeEventListener("click", onClick);
-        }
-    };
+	node.addEventListener('click', onClick);
+
+	return {
+		destroy() {
+			node.removeEventListener('click', onClick);
+		}
+	};
 }

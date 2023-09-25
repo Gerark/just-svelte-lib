@@ -2,7 +2,7 @@
     import {createEventDispatcher} from "svelte";
 
     export let placeHolderText = "";
-    export let value = "";
+    export let value = 0;
     export let inputElement = null;
     export let canReset = false;
     export let defaultIcon = "";
@@ -14,12 +14,12 @@
 
     function reset() {
         if (canReset) {
-            value = "";
+            value = 0;
         }
     }
 
     function onInput(event) {
-        dispatch("valuechanged", event.target.value);
+        dispatch("valuechanged", event.target.value)
     }
 </script>
 
@@ -32,7 +32,7 @@
            on:keydown
            on:mousedown|stopPropagation placeholder="{placeHolderText}"
            style:padding-left="{showIcon ? '30px' : '10px'}"
-           type="text">
+           type="number">
     {#if !hasValue && defaultIcon !== ""}
         <i class="fas fa-{defaultIcon}" class:clickable={hasValue && canReset}></i>
     {:else if hasValue && canReset}
@@ -82,6 +82,10 @@
         border: var(--theme-just-border-width) solid var(--theme-just-border-active-color);
         box-shadow: none;
       }
+    }
+    
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
     }
   }
 </style>

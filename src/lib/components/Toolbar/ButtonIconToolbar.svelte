@@ -17,7 +17,8 @@
 
 <Flex class="thin" {direction} gap="2px" width="auto">
     {#each items as item}
-        <ButtonIcon icon="{item.icon}" size="s" on:click={() => {item.onClick(context);}}></ButtonIcon>
+        <ButtonIcon icon="{item.icon}" tooltip="{item.description}" size="xs"
+                    on:click={() => {item.onClick(context);}}></ButtonIcon>
     {/each}
 </Flex>
 

@@ -6,7 +6,12 @@ const config = {
 	kit: {
 		adapter: adapter()
 	},
-	preprocess: preprocess({ scss: true })
+	preprocess: preprocess({ scss: true }),
+	vitePlugin: {
+		experimental: {
+			inspector: false
+		}
+	}
 };
 
 export default config;

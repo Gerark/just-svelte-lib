@@ -3,14 +3,17 @@
     import {createEventDispatcher, onMount} from "svelte";
     import EditableListHeader from "$lib/components/EditableList/EditableListHeader.svelte";
     import EditableListContent from "$lib/components/EditableList/EditableListContent.svelte";
+    import HeaderBox from "$lib/components/Layout/HeaderBox.svelte";
 
     export let title = "";
     export let items = [];
-    export let height = "auto";
+    export let height = "100%";
+    export let type = "";
 
     let headerActions = [
         {
             icon: "plus",
+            description: "Create Item",
             onClick: () => {
                 addAtIndex(0, createItem());
             }
@@ -20,18 +23,21 @@
     let itemActions = [
         {
             icon: "plus",
+            description: "Insert Item",
             onClick: item => {
                 addAfterItem(item, createItem());
             }
         },
         {
             icon: "copy",
+            description: "Duplicate Item",
             onClick: item => {
                 addAfterItem(item, copyItem(item));
             }
         },
         {
             icon: "trash",
+            description: "Remove Item",
             onClick: item => {
                 removeAtIndex(items.indexOf(item));
             }
@@ -85,22 +91,32 @@
     function createItem() {
         let detail = {result: null};
         dispatch("create", detail);
+        detail.result.id = generateQuickGUID();
         return detail.result;
     }
 
     function copyItem(item) {
         let detail = {item, result: null};
         dispatch("copy", detail);
+        detail.result.id = generateQuickGUID();
         return detail.result;
+    }
+
+    //TODO: This GUID generation must to be changed
+    function generateQuickGUID() {
+        return Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15);
     }
 </script>
 
-<Flex class="frame thick clip-overflow" direction="vertical" flex="{['0', '3']}" {height} width="100%">
-    <EditableListHeader actions="{headerActions}" {title}></EditableListHeader>
-    <EditableListContent {itemActions} {items} let:index let:item on:itemmoved={onItemMoved}>
-        <slot {index} {item}></slot>
-    </EditableListContent>
-</Flex>
+<HeaderBox {height} {title}>
+    <EditableListHeader actions="{headerActions}" slot="header" {title}></EditableListHeader>
+    <svelte:fragment slot="content">
+        <EditableListContent {itemActions} {items} let:index let:item on:itemmoved={onItemMoved} {type}>
+            <slot {index} {item}></slot>
+        </EditableListContent>
+    </svelte:fragment>
+</HeaderBox>
 
 <style lang="scss">
 </style>

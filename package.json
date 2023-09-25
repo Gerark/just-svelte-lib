@@ -1,6 +1,6 @@
 {
   "name": "@gerark/just-svelte-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "vite dev",
     "build": "svelte-kit sync && svelte-package",
@@ -36,6 +36,7 @@
     "fontawesome-free": "^1.0.4",
     "fuzzysort": "^2.0.4",
     "svelte-preprocess": "^5.0.4",
-    "tippy.js": "^6.3.7"
+    "tippy.js": "^6.3.7",
+    "svelte-dnd-action": "^0.9.30"
   }
 }

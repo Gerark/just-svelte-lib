@@ -13,7 +13,5 @@
     position: absolute;
     top: 0;
     left: 0;
-    overflow: auto;
-    scrollbar-gutter: stable;
   }
 </style>

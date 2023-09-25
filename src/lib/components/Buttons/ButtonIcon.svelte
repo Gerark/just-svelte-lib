@@ -1,11 +1,17 @@
 <script>
+    import {justTooltip} from "$lib/actions/tooltip.js";
+
     export let icon = "";
     export let size = "m";
+    export let tooltip = "";
 
-    $: buttonSize = size === "l" ? 40 : size === "s" ? 24 : 32;
+    $: tooltipAction = tooltip !== "" ? justTooltip : () => {
+    };
+    $: buttonSize = size === "l" ? 40 : size === "s" ? 24 : size === "xs" ? 16 : 32;
 </script>
 
-<button on:click style:font-size="{buttonSize/2}px" style:height="{buttonSize}px" style:width="{buttonSize}px">
+<button on:click style:font-size="{buttonSize/2}px" style:height="{buttonSize}px" style:width="{buttonSize}px"
+        use:tooltipAction={tooltip}>
     <i class="fa fa-{icon}"></i>
 </button>
 
@@ -19,6 +25,7 @@
 
     i {
       margin: auto;
+      font-size: 10px;
       display: flex;
       justify-content: center;
       align-items: center;

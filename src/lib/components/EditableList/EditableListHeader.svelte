@@ -8,7 +8,7 @@
 </script>
 
 <Flex direction="horizontal" flex="{['3']}" width="100%">
-    <Label align="left" text="{title}"></Label>
+    <Label align="left">{title}</Label>
     <ButtonIconToolbar direction="horizontal" items="{actions}"></ButtonIconToolbar>
 </Flex>
 

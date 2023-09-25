@@ -2,50 +2,41 @@
     import TreeViewItem from "./TreeViewItem.svelte";
     import Label from "$lib/components/Label/Label.svelte";
     import Separator from "$lib/components/Separator/Separator.svelte";
+    import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
+    import {flip} from "svelte/animate"
 
     export let items = [];
-    export let appendItemsCount = false;
     export let showDescription = true;
     export let descriptionText = "";
-    export let height = "100%";
 </script>
 
-<div class="just-tree-view" style:height="{height}">
-    <div class="content">
-        {#if showDescription}
-            <Label text="{descriptionText}"></Label>
-            <Separator></Separator>
-        {/if}
-        <div>
-            {#each items as item (item.id)}
-                <TreeViewItem items="{item.items}" label="{item.label}" payload="{item.payload}" icon="{item.icon}"
-                              folded="{!item.isOpen}"
-                              on:leafSelected
-                              {appendItemsCount}></TreeViewItem>
-            {/each}
-        </div>
+<div class="content">
+    {#if showDescription}
+        <Label>{descriptionText}</Label>
+        <Separator></Separator>
+    {/if}
+    <div>
+        {#each items as item (item.id)}
+            <div animate:flip={{duration: 125}}>
+                <TreeViewItem
+                        {item}
+                        on:leafselected on:folderselected
+                        let:nodeItem>
+                    <slot slot="item" name="item" {nodeItem}>
+                        <DefaultTreeViewItemContent item="{nodeItem}"></DefaultTreeViewItemContent>
+                    </slot>
+                </TreeViewItem>
+            </div>
+        {/each}
     </div>
 </div>
 
 <style lang="scss">
-  .just-tree-view {
-    box-sizing: border-box;
-    background: var(--theme-just-bg-content-color);
-    color: var(--theme-just-txt-default-color);
-    padding: 0 5px 10px 0;
-    height: 100%;
+  .content {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
     width: 100%;
-    overflow: clip;
-    user-select: none;
-
-    .content {
-      display: flex;
-      flex-flow: column nowrap;
-      padding: 5px 5px 0 5px;
-      gap: 8px;
-      height: 100%;
-      overflow: auto;
-      scrollbar-gutter: stable;
-    }
+    height: 100%;
   }
 </style>

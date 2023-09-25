@@ -15,7 +15,6 @@
   ::-webkit-scrollbar-track {
     border: 0 solid transparent;
     box-shadow: none;
-    margin: 5px 0 0 0;
   }
 
   ::-webkit-scrollbar-track:hover {
@@ -39,4 +38,46 @@
     background: var(--theme-just-bg-highlighted-text-color);
     color: var(--theme-just-txt-highlighted-color);
   }
+}
+
+:root {
+  --theme-just-bg-color: #000000;
+  --theme-just-bg-component-color: #000000;
+  --theme-just-bg-content-color: #000000;
+  --theme-just-bg-highlighted-text-color: #000000;
+  --theme-just-bg-selected-color: #000000;
+  --theme-just-bg-hover-color: #000000;
+  --theme-just-bg-table-even: #000000;
+  --theme-just-bg-table-odd: #000000;
+  --theme-just-txt-default-color: #000000;
+  --theme-just-txt-inactive-color: #000000;
+  --theme-just-txt-selected-color: #000000;
+  --theme-just-txt-highlighted-color: #000000;
+  --theme-just-sep-color: #000000;
+  --theme-just-scroll-color: #000000;
+  --theme-just-scroll-hover-color: #000000;
+  --theme-just-border-width: 1px;
+  --theme-just-border-radius: 10px;
+  --theme-just-border-default-color: #000000;
+  --theme-just-border-hover-color: #000000;
+  --theme-just-border-focus-color: #000000;
+  --theme-just-border-active-color: #000000;
+  --theme-just-bg-treeviewitem-color: transparent;
+  --theme-just-bg-treeviewitem-hover-color: #000000;
+  --theme-just-bg-treeviewitem-focus-color: #000000;
+  --theme-just-bg-treeviewitem-focus-text-color: #000000;
+  --theme-just-bg-button-color: #000000;
+  --theme-just-bg-button-hover-color: #000000;
+  --theme-just-txt-button-color: #000000;
+  --theme-just-icon-default-color: #000000;
+  --theme-just-icon-hover-color: #000000;
+  --theme-just-icon-treeviewitem-color: #000000;
+  --theme-just-checkmark-default-color: #000000;
+  --theme-just-animation-click-duration: 0.15s;
+  --theme-just-animation-hover-duration: 0.25s;
+  --theme-just-gap-default: 5px;
+  --theme-just-padding-thick: 5px;
+  --theme-just-padding-thin: 2px;
+  --theme-just-font-family: 'Lucida Sans', serif;
+  --theme-just-font-default-size: 12px;
 }

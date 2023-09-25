@@ -27,7 +27,7 @@
     color: var(--theme-just-bg-txt-color);
   }
 
-  .frame {
+  .component {
     background: var(--theme-just-bg-component-color);
   }
 
@@ -35,9 +35,13 @@
     background: var(--theme-just-bg-content-color);
   }
 
+  .background {
+    background: var(--theme-just-bg-color);
+  }
+
   .scrollable {
-    overflow: auto;
-    scrollbar-gutter: stable;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
   }
 
   .clip-overflow {

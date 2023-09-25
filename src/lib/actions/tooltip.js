@@ -1,15 +1,9 @@
 import tippy, { followCursor } from 'tippy.js';
-import { getContext } from 'svelte';
-import updateTheme from '../components/Theme/updateTheme.js';
 
 export function justTooltip(node, description) {
 	if (!tippy) {
 		return;
 	}
-
-	let currentThemeStore = getContext('currentTheme');
-
-	let unsubscribe = () => {};
 
 	let params = {
 		content: `<div class="just-tooltip-content" data-theme="just">${description}</div>`,
@@ -22,14 +16,6 @@ export function justTooltip(node, description) {
 		allowHTML: true,
 		plugins: [followCursor],
 		followCursor: true,
-		onMount(instance) {
-			unsubscribe = currentThemeStore.subscribe((theme) => {
-				updateTheme(instance.popper, theme);
-			});
-		},
-		onDestroy(instance) {
-			unsubscribe();
-		},
 		popperOptions: {
 			strategy: 'fixed',
 			modifiers: [

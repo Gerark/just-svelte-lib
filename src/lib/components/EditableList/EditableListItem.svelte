@@ -34,7 +34,8 @@
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
-    gap: var(--theme-just-gap-default);
+    gap: 2px;
+    padding: var(--theme-just-padding-thin);
 
     .grip {
       color: var(--theme-just-txt-inactive-color);

@@ -1,14 +1,12 @@
 <script>
     import EditableListItem from "$lib/components/EditableList/EditableListItem.svelte";
     import {flip} from "svelte/animate";
-    import {get as svelteGet} from "svelte/store";
     import {createEventDispatcher} from "svelte";
     import {dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, SOURCES, TRIGGERS} from "svelte-dnd-action";
-    import {getContext} from "svelte";
-    import updateTheme from "$lib/components/Theme/updateTheme.js";
 
     export let items;
     export let itemActions;
+    export let type;
 
     let isDragging = false;
     let dragDisabled = true;
@@ -50,17 +48,12 @@
         dispatch("itemmoved", items);
     }
 
-    function transformDraggedElement(element, data, index) {
-        let theme = getContext("currentTheme");
-        updateTheme(element, svelteGet(theme));
-    }
-
     let dropTargetStyle = {outline: 'none'};
     let flipDurationMs = 125;
 </script>
 
 <div class="content" on:consider="{handleDndConsider}" on:finalize="{handleDndFinalize}"
-     use:dndzone="{{items, flipDurationMs, dropTargetStyle, transformDraggedElement, dragDisabled}}">
+     use:dndzone="{{items, flipDurationMs, dropTargetStyle, dragDisabled, type}}">
     {#each items as item (item.id)}
         <div style:width="100%" animate:flip={{duration: 125}} style:cursor="{isDragging ? 'grabbing' : 'grab'}">
             {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
@@ -78,15 +71,12 @@
 <style lang="scss">
   .content {
     background: var(--theme-just-bg-content-color);
-    overflow: auto;
-    scrollbar-gutter: stable;
     height: 100%;
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    padding: var(--theme-just-gap-default);
   }
 
   .custom-shadow-item {

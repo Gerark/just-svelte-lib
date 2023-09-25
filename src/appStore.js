@@ -1,8 +1,45 @@
 import { writable, get as svelteGet } from 'svelte/store';
-import { createDefaultThemes } from '$lib/styles/createTheme.js';
+import { createDefaultThemes, createTheme } from '$lib/styles/createTheme.js';
 
 export const allThemes = writable(createDefaultThemes());
 export const currentTheme = writable(svelteGet(allThemes)[0].value);
+export const currentItem = writable({});
+
+export const configuration = writable([
+	{ id: 0, label: 'Bool Property', store: writable(false) },
+	{ id: 1, label: 'String Property', store: writable('') },
+	{ id: 2, label: 'Enum Property', store: writable('') },
+	{ id: 3, label: 'Number Property', store: writable(10) },
+	{
+		id: 4,
+		label: 'List Property',
+		listType: 'themes',
+		create: (event) => {
+			event.detail.result = {
+				label: 'new-theme',
+				value: createTheme(
+					'new-theme',
+					['#666666', '#FFFFFF'],
+					['#AA0000', '#000000'],
+					['#4570c0', '#121212'],
+					['#4CAF50', '#000000'],
+					['#008000', '#FFFFFF'],
+					['#FFC107', '#121212'],
+					['#FF0000', '#FFFFFF']
+				)
+			};
+		},
+		copy: (event) => {
+			let clone = structuredClone(event.detail.item);
+			event.detail.result = clone;
+		},
+		listUpdated: (event) => {
+			allThemes.set(event.detail);
+		},
+		store: allThemes
+	}
+]);
+
 export const fakeData = writable([
 	{
 		id: 0,

@@ -5,6 +5,7 @@ import './styles.scss';
 export function createDefaultThemes() {
 	return [
 		{
+			id: 0,
 			label: 'dark-juice',
 			value: createTheme(
 				'dark-juice',
@@ -18,6 +19,7 @@ export function createDefaultThemes() {
 			)
 		},
 		{
+			id: 1,
 			label: 'dust',
 			value: createTheme(
 				'dust',
@@ -31,6 +33,7 @@ export function createDefaultThemes() {
 			)
 		},
 		{
+			id: 2,
 			label: 'crimson',
 			value: createTheme(
 				'crimson',
@@ -62,20 +65,28 @@ export function createTheme(
 		properties: {}
 	};
 
-	addColor(theme.properties, surface, onSurface, 'surface');
-	addColor(theme.properties, primary2, onPrimary, 'primary');
-	addColor(theme.properties, secondary, onSecondary, 'secondary');
-	addColor(theme.properties, tertiary, ontertiary, 'tertiary');
-	addColor(theme.properties, success, onSuccess, 'success');
-	addColor(theme.properties, warning, onWarning, 'warning');
-	addColor(theme.properties, error, onError, 'error');
+	let baseColors = {};
+	addColor(baseColors, surface, onSurface, 'surface');
+	addColor(baseColors, primary2, onPrimary, 'primary');
+	addColor(baseColors, secondary, onSecondary, 'secondary');
+	addColor(baseColors, tertiary, ontertiary, 'tertiary');
+	addColor(baseColors, success, onSuccess, 'success');
+	addColor(baseColors, warning, onWarning, 'warning');
+	addColor(baseColors, error, onError, 'error');
 
-	addComponentProperties(theme.properties);
+	addComponentProperties(theme.properties, baseColors);
 
-	theme.properties['animation-click-duration'] = '0.15s';
-	theme.properties['animation-hover-duration'] = '0.25s';
-	theme.properties['gap-default'] = '5px';
-	theme.properties['font-family'] = 'Lucida Sans, serif';
+	/* These are default values already defined ( change the logic once we can customize them )
+        theme.properties['animation-click-duration'] = '0.15s';
+        theme.properties['animation-hover-duration'] = '0.25s';
+        theme.properties['gap-default'] = '5px';
+        theme.properties['padding-thick'] = '5px';
+        theme.properties['padding-thin'] = '2px';
+        theme.properties['font-family'] = 'Lucida Sans, serif';
+        theme.properties['font-default-size'] = '12px';
+        theme.properties['border-width'] = '1px';
+        theme.properties['border-radius'] = '10px';
+    */
 	return theme;
 }
 
@@ -90,41 +101,43 @@ function addColor(properties, color, onColor, name) {
 	properties[`on-${name}`] = onColor;
 }
 
-function addComponentProperties(properties) {
-	properties['bg-color'] = properties['surface-d4'];
-	properties['bg-component-color'] = properties['surface-d2'];
-	properties['bg-content-color'] = properties['surface-d3'];
-	properties['bg-highlighted-text-color'] = properties['tertiary'];
-	properties['bg-selected-color'] = properties['primary'];
-	properties['bg-hover-color'] = Color(properties['primary']).alpha(0.1);
+function addComponentProperties(properties, baseColors) {
+	properties['bg-color'] = baseColors['surface-d4'].toString();
+	properties['bg-component-color'] = baseColors['surface-d2'].toString();
+	properties['bg-content-color'] = baseColors['surface-d3'].toString();
+	properties['bg-highlighted-text-color'] = baseColors['tertiary'].toString();
+	properties['bg-selected-color'] = baseColors['primary'].toString();
+	properties['bg-hover-color'] = baseColors['primary-d4'].toString();
+	properties['bg-table-even'] = baseColors['surface-d2'].toString();
+	properties['bg-table-odd'] = baseColors['surface-d1'].toString();
 
-	properties['txt-default-color'] = properties['on-surface'];
-	properties['txt-inactive-color'] = Color(properties['on-surface']).alpha(0.5);
-	properties['txt-selected-color'] = properties['on-primary'];
-	properties['txt-highlighted-color'] = properties['on-tertiary'];
+	properties['txt-default-color'] = baseColors['on-surface'].toString();
+	properties['txt-inactive-color'] = Color(baseColors['on-surface']).alpha(0.5).toString();
+	properties['txt-selected-color'] = baseColors['on-primary'].toString();
+	properties['txt-highlighted-color'] = baseColors['on-tertiary'].toString();
 
-	properties['sep-color'] = properties['surface'];
+	properties['sep-color'] = baseColors['surface'].toString();
 
-	properties['scroll-color'] = properties['surface'];
-	properties['scroll-hover-color'] = properties['surface-l1'];
+	properties['scroll-color'] = baseColors['surface'].toString();
+	properties['scroll-hover-color'] = baseColors['surface-l1'].toString();
 
-	properties['border-width'] = '1px';
-	properties['border-radius'] = '10px';
-	properties['border-default-color'] = properties['surface-l1'];
-	properties['border-hover-color'] = properties['primary'];
-	properties['border-focus-color'] = properties['primary'];
-	properties['border-active-color'] = properties['primary'];
+	properties['border-default-color'] = baseColors['surface-l1'].toString();
+	properties['border-hover-color'] = baseColors['primary'].toString();
+	properties['border-focus-color'] = baseColors['primary'].toString();
+	properties['border-active-color'] = baseColors['secondary'].toString();
 
 	properties['bg-treeviewitem-color'] = 'transparent';
-	properties['bg-treeviewitem-hover-color'] = properties['bg-hover-color'];
-	properties['bg-treeviewitem-focus-color'] = properties['primary'];
-	properties['bg-treeviewitem-focus-text-color'] = properties['on-primary'];
+	properties['bg-treeviewitem-hover-color'] = properties['bg-hover-color'].toString();
+	properties['bg-treeviewitem-focus-color'] = baseColors['primary'].toString();
+	properties['bg-treeviewitem-focus-text-color'] = baseColors['on-primary'].toString();
 
-	properties['bg-button-color'] = properties['primary'];
-	properties['bg-button-hover-color'] = properties['primary-l1'];
-	properties['txt-button-color'] = properties['on-primary'];
+	properties['bg-button-color'] = baseColors['primary'].toString();
+	properties['bg-button-hover-color'] = baseColors['primary-l1'].toString();
+	properties['txt-button-color'] = baseColors['on-primary'].toString();
 
-	properties['icon-default-color'] = properties['on-surface'];
-	properties['icon-hover-color'] = properties['primary'];
-	properties['icon-treeviewitem-color'] = properties['primary-l3'];
+	properties['icon-default-color'] = baseColors['on-surface'].toString();
+	properties['icon-hover-color'] = baseColors['primary'].toString();
+	properties['icon-treeviewitem-color'] = baseColors['primary-l3'].toString();
+
+	properties['checkmark-default-color'] = baseColors['primary'].toString();
 }
