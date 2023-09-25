@@ -1,5 +1,6 @@
 import { writable, get as svelteGet } from 'svelte/store';
 import { createDefaultThemes, createTheme } from '$lib/styles/createTheme.js';
+import { dndzone } from 'svelte-dnd-action';
 
 export const allThemes = writable(createDefaultThemes());
 export const currentTheme = writable(svelteGet(allThemes)[0].value);
@@ -7,13 +8,19 @@ export const currentItem = writable({});
 
 export const configuration = writable([
 	{ id: 0, label: 'Bool Property', store: writable(false) },
-	{ id: 1, label: 'String Property', store: writable('') },
-	{ id: 2, label: 'Enum Property', store: writable('') },
-	{ id: 3, label: 'Number Property', store: writable(10) },
+	{ id: 1, label: 'String Property', type: 'Text', store: writable('') },
+	{
+		id: 2,
+		label: 'Select Theme',
+		type: 'Enum',
+		values: allThemes,
+		store: currentTheme
+	},
+	{ id: 3, label: 'Number Property', type: 'Number', store: writable(10) },
 	{
 		id: 4,
-		label: 'List Property',
-		listType: 'themes',
+		label: 'Themes',
+		dndzone: 'themes',
 		create: (event) => {
 			event.detail.result = {
 				label: 'new-theme',

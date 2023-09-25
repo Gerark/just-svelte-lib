@@ -6,7 +6,7 @@
 
     export let items;
     export let itemActions;
-    export let type;
+    export let dndzoneType;
 
     let isDragging = false;
     let dragDisabled = true;
@@ -53,7 +53,7 @@
 </script>
 
 <div class="content" on:consider="{handleDndConsider}" on:finalize="{handleDndFinalize}"
-     use:dndzone="{{items, flipDurationMs, dropTargetStyle, dragDisabled, type}}">
+     use:dndzone="{{items, flipDurationMs, dropTargetStyle, dragDisabled, type: dndzoneType}}">
     {#each items as item (item.id)}
         <div style:width="100%" animate:flip={{duration: 125}} style:cursor="{isDragging ? 'grabbing' : 'grab'}">
             {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}

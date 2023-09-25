@@ -38,10 +38,10 @@
 <Separator width="{2}"></Separator>
 
 <div style:max-height="300px" style:min-height="300px" style:width="100%">
-    <EditableList items="{$fakeData}" let:index on:copy
+    <EditableList dndzone="treeRoots" items="{$fakeData}" let:index
+                  on:copy
                   on:create
-                  on:listUpdated
-                  title="Editable List" type="treeRoots">
+                  on:listUpdated title="Editable List">
         <TextBox bind:value={$fakeData[index].label} canReset="{false}"></TextBox>
     </EditableList>
 </div>

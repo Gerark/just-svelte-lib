@@ -1,5 +1,4 @@
 <script>
-    import Flex from "$lib/components/Layout/Flex.svelte";
     import {createEventDispatcher, onMount} from "svelte";
     import EditableListHeader from "$lib/components/EditableList/EditableListHeader.svelte";
     import EditableListContent from "$lib/components/EditableList/EditableListContent.svelte";
@@ -8,7 +7,7 @@
     export let title = "";
     export let items = [];
     export let height = "100%";
-    export let type = "";
+    export let dndzone = "";
 
     let headerActions = [
         {
@@ -112,7 +111,8 @@
 <HeaderBox {height} {title}>
     <EditableListHeader actions="{headerActions}" slot="header" {title}></EditableListHeader>
     <svelte:fragment slot="content">
-        <EditableListContent {itemActions} {items} let:index let:item on:itemmoved={onItemMoved} {type}>
+        <EditableListContent dndzoneType="{dndzone}" {itemActions} {items} let:index let:item
+                             on:itemmoved={onItemMoved}>
             <slot {index} {item}></slot>
         </EditableListContent>
     </svelte:fragment>
