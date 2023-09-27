@@ -11,7 +11,7 @@
     }
 </script>
 
-<Flex direction="horizontal">
+<Flex direction="horizontal" height="auto">
     {#if label !== ""}
         <Label>{label}</Label>
     {/if}

@@ -6,8 +6,8 @@
  *
  * @param params.callback
  */
-export function clickOutside(node, { callback, isEnabled }) {
-	const handleClick = (event) => {
+export function scrollOutside(node, { callback, isEnabled }) {
+	const handleScroll = (event) => {
 		if (
 			node &&
 			!node.contains(event.target) &&
@@ -19,11 +19,11 @@ export function clickOutside(node, { callback, isEnabled }) {
 		}
 	};
 
-	document.addEventListener('click', handleClick, true);
+	document.addEventListener('scroll', handleScroll, true);
 
 	return {
 		destroy() {
-			document.removeEventListener('click', handleClick, true);
+			document.removeEventListener('scroll', handleScroll, true);
 		}
 	};
 }

@@ -12,7 +12,7 @@
 
 <button on:click style:font-size="{buttonSize/2}px" style:height="{buttonSize}px" style:width="{buttonSize}px"
         use:tooltipAction={tooltip}>
-    <i class="fa fa-{icon}"></i>
+    <i class="fa fa-{icon}" style:font-size="{buttonSize/2}"></i>
 </button>
 
 <style lang="scss">
@@ -25,7 +25,6 @@
 
     i {
       margin: auto;
-      font-size: 10px;
       display: flex;
       justify-content: center;
       align-items: center;

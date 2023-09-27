@@ -9,13 +9,6 @@ export const currentItem = writable({});
 export const configuration = writable([
 	{ id: 0, label: 'Bool Property', store: writable(false) },
 	{ id: 1, label: 'String Property', type: 'Text', store: writable('') },
-	{
-		id: 2,
-		label: 'Select Theme',
-		type: 'Enum',
-		values: allThemes,
-		store: currentTheme
-	},
 	{ id: 3, label: 'Number Property', type: 'Number', store: writable(10) },
 	{
 		id: 4,
@@ -44,6 +37,13 @@ export const configuration = writable([
 			allThemes.set(event.detail);
 		},
 		store: allThemes
+	},
+	{
+		id: 2,
+		label: 'Select Theme',
+		type: 'Enum',
+		values: allThemes,
+		store: currentTheme
 	}
 ]);
 
