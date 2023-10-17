@@ -1,9 +1,9 @@
 <script>
-    import foldClick from "../../actions/foldClick.js"
-    import {createEventDispatcher} from "svelte";
-    import {justTooltip} from "../../actions/tooltip.js"
-    import {slide} from 'svelte/transition';
-    import {quintOut} from 'svelte/easing';
+    import foldClick from "../../actions/foldClick.js";
+    import { createEventDispatcher } from "svelte";
+    import { justTooltip } from "../../actions/tooltip.js";
+    import { slide } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
     import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
 
     export let item = null;
@@ -84,7 +84,7 @@
         </div>
     </div>
     {#if item.items && item.isOpen}
-        <div transition:slide={{ duration: 125, axis: "y", easing: quintOut }}>
+        <div transition:slide|local={{ duration: 125, axis: "y", easing: quintOut }}>
             {#each item.items as childItem (childItem.id)}
                 <svelte:self
                         item="{childItem}"
@@ -105,7 +105,7 @@
 <style lang="scss">
   .tree-view-item {
     text-align: right;
-    color: var(--theme-just-txt-default-color);
+    color: var(--tjust-txt-default-color);
 
     .header {
       display: flex;
@@ -113,7 +113,7 @@
       justify-content: flex-start;
       align-items: center;
       align-content: flex-start;
-      padding: var(--theme-just-padding-thin) 0;
+      padding: var(--tjust-padding-thin) 0;
       gap: 5px;
 
       .icon {
@@ -123,23 +123,23 @@
         padding: 0;
         width: 12px;
         box-shadow: none;
-        color: var(--theme-just-txt-default-color);
+        color: var(--tjust-txt-default-color);
       }
 
       .leafIcon {
         width: 16px;
         text-align: center;
-        color: var(--theme-just-icon-treeviewitem-color);
+        color: var(--tjust-icon-treeviewitem-color);
       }
 
       .folded {
         rotate: 0deg;
-        transition: rotate var(--theme-just-animation-click-duration);
+        transition: rotate var(--tjust-animation-click-duration);
       }
 
       .unfolded {
         rotate: 90deg;
-        transition: rotate var(--theme-just-animation-click-duration);
+        transition: rotate var(--tjust-animation-click-duration);
       }
     }
 
@@ -147,21 +147,21 @@
     }
 
     .header-bkg {
-      background-color: var(--theme-just-bg-treeviewitem-color);
+      background-color: var(--tjust-bg-treeviewitem-color);
       width: 100%;
     }
 
     .header-bkg:hover {
-      background-color: var(--theme-just-bg-treeviewitem-hover-color);
+      background-color: var(--tjust-bg-treeviewitem-hover-color);
     }
 
     .header-bkg:focus {
-      background-color: var(--theme-just-bg-treeviewitem-focus-color);
-      color: var(--theme-just-bg-treeviewitem-focus-text-color);
+      background-color: var(--tjust-bg-treeviewitem-focus-color);
+      color: var(--tjust-bg-treeviewitem-focus-text-color);
       outline: none;
 
       .folderIcon {
-        color: var(--theme-just-txt-selected-color);
+        color: var(--tjust-txt-selected-color);
       }
     }
   }

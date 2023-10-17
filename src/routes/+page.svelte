@@ -1,57 +1,41 @@
 <script>
-    import Theme from "$lib/components/Theme/Theme.svelte";
-    import Panel from "$lib/components/Layout/Panel.svelte";
-    import Overlay from "$lib/components/Layout/Overlay.svelte";
-    import FirstTestColumn from "./FirstTestColumn.svelte";
-    import SecondTestColumn from "./SecondTestColumn.svelte";
-    import HeaderTestColumn from "./HeaderTestColumn.svelte";
-
-    import {currentTheme, fakeData, currentItem} from "../appStore.js";
-    import Flex from "$lib/components/Layout/Flex.svelte";
-    import Separator from "$lib/components/Separator/Separator.svelte";
-
-    function onListUpdated(ev) {
-        fakeData.set(ev.detail);
-    }
-
-    function createListItem(ev) {
-        ev.detail.result = {label: "New Item", items: []};
-    }
-
-    function copyListItem(ev) {
-        let newItem = structuredClone(ev.detail.item);
-        ev.detail.result = newItem;
-    }
-
-    function onItemSelected(ev) {
-        currentItem.set(ev.detail);
-    }
+  import Theme from "$lib/components/Theme/Theme.svelte";
+  import Panel from "$lib/components/Layout/Panel.svelte";
+  import Overlay from "$lib/components/Layout/Overlay.svelte";
+  import HeaderTestColumn from "./HeaderTestColumn.svelte";
+  import { currentTheme } from "$lib/styles/themeStore.js";
+  import Flex from "$lib/components/Layout/Flex.svelte";
+  import Separator from "$lib/components/Separator/Separator.svelte";
+  import "$lib/styles/themes/dark-juice.scss";
+  import "$lib/styles/themes/crimson.scss";
+  import "$lib/styles/themes/dust.scss";
+  import TabControl from "$lib/components/TabControl/TabControl.svelte";
+  import Tab from "$lib/components/TabControl/Tab.svelte";
+  import CommonComponents from "./CommonComponents.svelte";
+  import ListComponents from "./ListComponents.svelte";
+  import SpecialComponents from "./SpecialComponents.svelte";
 </script>
 
-<div>
-    <Overlay>
-        <Theme theme="{$currentTheme}">
-            <Panel>
-                <Flex class="background" direction="vertical" gap="10px" height="100%" width="100%">
-                    <HeaderTestColumn></HeaderTestColumn>
-                    <Separator width="{2}"></Separator>
-                    <Flex direction="horizontal" height="100%" width="100%">
-                        <Flex direction="vertical" gap="10px" width="400px">
-                            <FirstTestColumn on:copy={copyListItem} on:create={createListItem}
-                                             on:folderselected={onItemSelected} on:leafselected={onItemSelected}
-                                             on:listUpdated={onListUpdated}>
-                            </FirstTestColumn>
-                        </Flex>
-                        <Flex direction="vertical" gap="10px" width="400px">
-                            <SecondTestColumn>
-                            </SecondTestColumn>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Panel>
-        </Theme>
-    </Overlay>
-</div>
+<Theme theme="{$currentTheme}">
+  <Overlay>
+    <Panel>
+      <Flex class="background vertical" gap="10px" height="100%" width="100%">
+        <HeaderTestColumn></HeaderTestColumn>
+        <TabControl>
+          <Tab data="{{header: 'Basic'}}">
+            <CommonComponents></CommonComponents>
+          </Tab>
+          <Tab data="{{header: 'Lists & TreeView'}}">
+            <ListComponents></ListComponents>
+          </Tab>
+          <Tab data="{{header: 'Special'}}">
+            <SpecialComponents></SpecialComponents>
+          </Tab>
+        </TabControl>
+      </Flex>
+    </Panel>
+  </Overlay>
+</Theme>
 
 <style lang="scss">
 </style>

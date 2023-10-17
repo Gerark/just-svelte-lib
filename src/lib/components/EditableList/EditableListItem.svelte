@@ -1,31 +1,31 @@
 <script>
-    import ButtonIconToolbar from "$lib/components/Toolbar/ButtonIconToolbar.svelte";
-    import {createEventDispatcher} from "svelte";
+  import ButtonToolbar from "$lib/components/Button/ButtonToolbar.svelte";
+  import { createEventDispatcher } from "svelte";
 
-    export let item;
-    export let actions = [];
-    export let isDragging = false;
+  export let item;
+  export let actions = [];
+  export let isDragging = false;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    function dispatchGripDown(event) {
-        dispatch("gripdown");
-    }
+  function dispatchGripDown(event) {
+    dispatch("gripdown");
+  }
 
-    function dispatchGripUp(event) {
-        dispatch("gripup");
-    }
+  function dispatchGripUp(event) {
+    dispatch("gripup");
+  }
 </script>
 
 <div class="list-item">
-    <div class="fa fa-grip-vertical grip" on:mousedown={dispatchGripDown} on:mouseup={dispatchGripUp}
-         style:cursor="{isDragging ? 'grabbing' : 'grab'}"></div>
-    <div class="content">
-        <slot></slot>
-    </div>
-    <div>
-        <ButtonIconToolbar context="{item}" direction="horizontal" items="{actions}"></ButtonIconToolbar>
-    </div>
+  <div class="fa fa-grip-vertical grip" on:mousedown={dispatchGripDown} on:mouseup={dispatchGripUp}
+       style:cursor="{isDragging ? 'grabbing' : 'grab'}"></div>
+  <div class="content">
+    <slot></slot>
+  </div>
+  <div>
+    <ButtonToolbar context="{item}" direction="horizontal" items="{actions}"></ButtonToolbar>
+  </div>
 </div>
 
 <style lang="scss">
@@ -34,11 +34,12 @@
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
     gap: 2px;
-    padding: var(--theme-just-padding-thin);
+    padding: var(--tjust-padding-thin);
 
     .grip {
-      color: var(--theme-just-txt-inactive-color);
+      color: var(--tjust-txt-inactive-color);
       user-select: none;
     }
 
@@ -47,13 +48,13 @@
     }
 
     &:hover {
-      background: var(--theme-just-bg-hover-color);
+      background: var(--tjust-bg-hover-color);
 
       .grip {
-        color: var(--theme-just-txt-default-color);
+        color: var(--tjust-txt-default-color);
 
         &:hover {
-          color: var(--theme-just-icon-hover-color);
+          color: var(--tjust-icon-hover-color);
         }
       }
     }

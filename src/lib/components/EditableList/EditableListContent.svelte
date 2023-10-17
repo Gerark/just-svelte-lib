@@ -1,8 +1,8 @@
 <script>
     import EditableListItem from "$lib/components/EditableList/EditableListItem.svelte";
-    import {flip} from "svelte/animate";
-    import {createEventDispatcher} from "svelte";
-    import {dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, SOURCES, TRIGGERS} from "svelte-dnd-action";
+    import { flip } from "svelte/animate";
+    import { createEventDispatcher } from "svelte";
+    import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, SOURCES, TRIGGERS } from "svelte-dnd-action";
 
     export let items;
     export let itemActions;
@@ -24,7 +24,7 @@
     }
 
     function handleDndConsider(event) {
-        const {items: newItems, info: {source, trigger}} = event.detail;
+        const { items: newItems, info: { source, trigger } } = event.detail;
         items = newItems;
 
         if (trigger === TRIGGERS.DRAG_STARTED) {
@@ -38,7 +38,7 @@
     }
 
     function handleDndFinalize(event) {
-        const {items: newItems, info: {source, trigger}} = event.detail;
+        const { items: newItems, info: { source, trigger } } = event.detail;
         items = newItems;
         // Ensure dragging is stopped on drag finish via keyboard
         if (source === SOURCES.POINTER) {
@@ -48,7 +48,7 @@
         dispatch("itemmoved", items);
     }
 
-    let dropTargetStyle = {outline: 'none'};
+    let dropTargetStyle = { outline: "none" };
     let flipDurationMs = 125;
 </script>
 
@@ -57,7 +57,7 @@
     {#each items as item (item.id)}
         <div style:width="100%" animate:flip={{duration: 125}} style:cursor="{isDragging ? 'grabbing' : 'grab'}">
             {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-                <div class='custom-shadow-item'>{item.label}</div>
+                <div class="custom-shadow-item">{item.label}</div>
             {:else}
                 <EditableListItem {item} actions="{itemActions}" on:gripdown={onGripDown} on:gripup={onGripUp}
                                   {isDragging}>
@@ -70,7 +70,7 @@
 
 <style lang="scss">
   .content {
-    background: var(--theme-just-bg-content-color);
+    background: var(--tjust-bg-content-color);
     height: 100%;
     width: 100%;
     box-sizing: border-box;
@@ -81,7 +81,7 @@
 
   .custom-shadow-item {
     visibility: visible;
-    background: var(--theme-just-bg-hover-color);
+    background: var(--tjust-bg-hover-color);
     color: transparent;
   }
 </style>

@@ -1,7 +1,7 @@
 import tippy, { followCursor } from 'tippy.js';
 
 export function justTooltip(node, description) {
-	if (!tippy) {
+	if (!tippy || !description || description === '') {
 		return;
 	}
 

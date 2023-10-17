@@ -1,0 +1,12 @@
+@import "../styles";
+
+@include create-theme(
+                "crimson",
+                #2b2e40, #FFFFFF,
+                #d4163c, #FFFFFF,
+                #4685af, #FFFFFF,
+                #c0b6b4, #000000,
+                #c1dd97, #000000,
+                #e4c25e, #000000,
+                #d27f81, #000000
+);

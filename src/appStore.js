@@ -1,32 +1,39 @@
-import { writable, get as svelteGet } from 'svelte/store';
-import { createDefaultThemes, createTheme } from '$lib/styles/createTheme.js';
-import { dndzone } from 'svelte-dnd-action';
+import { writable } from 'svelte/store';
+import { themes as allThemes, currentTheme } from './lib/styles/themeStore.js';
 
-export const allThemes = writable(createDefaultThemes());
-export const currentTheme = writable(svelteGet(allThemes)[0].value);
 export const currentItem = writable({});
 
 export const configuration = writable([
-	{ id: 0, label: 'Bool Property', store: writable(false) },
+	{
+		id: 0,
+		label: 'Bool Property with a long name just to test if everything works as expected',
+		store: writable(false)
+	},
 	{ id: 1, label: 'String Property', type: 'Text', store: writable('') },
+	{
+		id: 2,
+		label: 'Select Theme',
+		type: 'Enum',
+		values: allThemes,
+		store: currentTheme
+	},
 	{ id: 3, label: 'Number Property', type: 'Number', store: writable(10) },
 	{
 		id: 4,
+		label: 'Function Property',
+		type: 'Function',
+		store: writable(() => {
+			console.log('FUNCTION CALL');
+		})
+	},
+	{
+		id: 5,
 		label: 'Themes',
 		dndzone: 'themes',
 		create: (event) => {
 			event.detail.result = {
 				label: 'new-theme',
-				value: createTheme(
-					'new-theme',
-					['#666666', '#FFFFFF'],
-					['#AA0000', '#000000'],
-					['#4570c0', '#121212'],
-					['#4CAF50', '#000000'],
-					['#008000', '#FFFFFF'],
-					['#FFC107', '#121212'],
-					['#FF0000', '#FFFFFF']
-				)
+				value: 'new-theme'
 			};
 		},
 		copy: (event) => {
@@ -37,13 +44,6 @@ export const configuration = writable([
 			allThemes.set(event.detail);
 		},
 		store: allThemes
-	},
-	{
-		id: 2,
-		label: 'Select Theme',
-		type: 'Enum',
-		values: allThemes,
-		store: currentTheme
 	}
 ]);
 

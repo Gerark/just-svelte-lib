@@ -3,7 +3,7 @@
     import Label from "$lib/components/Label/Label.svelte";
     import Separator from "$lib/components/Separator/Separator.svelte";
     import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
-    import {flip} from "svelte/animate"
+    import { flip } from "svelte/animate";
 
     export let items = [];
     export let showDescription = true;
@@ -17,7 +17,7 @@
     {/if}
     <div>
         {#each items as item (item.id)}
-            <div animate:flip={{duration: 125}}>
+            <div animate:flip|local={{duration: 125}}>
                 <TreeViewItem
                         {item}
                         on:leafselected on:folderselected

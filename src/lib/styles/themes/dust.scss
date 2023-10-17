@@ -1,0 +1,13 @@
+@import "../styles";
+
+@include create-theme(
+                "dust",
+                #6b7280, #FFFFFF,
+                #3b82f6, #000000,
+                #0ea5e9, #000000,
+                #6366f1, #FFFFFF,
+                #84cc16, #000000,
+                #eab308, #000000,
+                #d41976, #FFFFFF
+);
+

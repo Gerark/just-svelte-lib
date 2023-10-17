@@ -1,17 +1,19 @@
 <script>
-    import {allThemes, currentTheme} from "../appStore.js";
-    import Flex from "$lib/components/Layout/Flex.svelte";
-    import ButtonIcon from "$lib/components/Buttons/ButtonIcon.svelte";
-    import Label from "$lib/components/Label/Label.svelte";
-    import Select from "$lib/components/Select/Select.svelte";
+  import { themes as allThemes, currentTheme } from "../lib/styles/themeStore.js";
+  import Flex from "$lib/components/Layout/Flex.svelte";
+  import Button from "$lib/components/Button/Button.svelte";
+  import Label from "$lib/components/Label/Label.svelte";
+  import Select from "$lib/components/Select/Select.svelte";
 
-    function resetTheme() {
-        currentTheme.set(($allThemes)[0].value);
-    }
+  function resetTheme() {
+    currentTheme.set(($allThemes)[0].value);
+  }
 </script>
 
-<Flex direction="horizontal" height="24px" width="100%">
-    <Label>THEME: </Label>
-    <Select bind:value="{$currentTheme}" items="{$allThemes}"/>
-    <ButtonIcon icon="sync" on:click={resetTheme} size="s"></ButtonIcon>
+<Flex class="horizontal" height="24px" width="100%">
+  <Label>THEME: </Label>
+  <Select bind:value="{$currentTheme}" items="{$allThemes}" />
+  <Button class="icon md" on:click={resetTheme}>
+    <i class="fa fa-sync"></i>
+  </Button>
 </Flex>

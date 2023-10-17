@@ -1,5 +1,5 @@
 <script>
-    export let item = null;
+  export let item = null;
 </script>
 
 <span class:folderLabel="{Array.isArray(item.items)}" class:leafLabel="{!Array.isArray(item.items)}">
@@ -7,6 +7,10 @@
 </span>
 
 <style lang="scss">
+  span {
+    font-size: var(--tjust-font-size-sm);
+  }
+
   .folderLabel {
     font-weight: bold;
     user-select: none;

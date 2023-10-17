@@ -1,5 +1,5 @@
 <script>
-    import {createEventDispatcher} from "svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let placeHolderText = "";
     export let value = "";
@@ -44,42 +44,44 @@
   .main {
     position: relative;
     display: flex;
-    width: calc(100% - 4px);
-    margin: 0 2px;
+    width: calc(100% - var(--tjust-padding-thin) * 2);
+    margin: 0 var(--tjust-padding-thin);
 
     i {
       position: absolute;
-      top: 12.5%;
-      left: 8px;
-      color: var(--theme-just-icon-default-color);
+      text-align: center;
+      padding: 6px;
+      font-size: var(--tjust-font-size-sm);
+      color: var(--tjust-icon-default-color);
     }
 
     .clickable:hover {
-      color: var(--theme-just-icon-hover-color);
+      color: var(--tjust-icon-hover-color);
     }
 
     input {
-      background: var(--theme-just-bg-content-color);
-      border: var(--theme-just-border-width) solid var(--theme-just-border-default-color);
-      border-radius: var(--theme-just-border-radius);
-      color: var(--theme-just-txt-default-color);
+      background: var(--tjust-bg-content-color);
+      border: var(--tjust-border-width) solid var(--tjust-border-default-color);
+      border-radius: var(--tjust-border-radius);
+      color: var(--tjust-txt-default-color);
       text-align: left;
       height: 20px;
       width: 100%;
+      font-size: var(--tjust-font-size-sm);
 
       &:hover {
-        border: var(--theme-just-border-width) solid var(--theme-just-border-hover-color);
-        background: var(--theme-just-bg-hover-color);
+        border: var(--tjust-border-width) solid var(--tjust-border-hover-color);
+        background: var(--tjust-bg-hover-color);
         box-shadow: none;
       }
 
       &:focus {
-        border: var(--theme-just-border-width) solid var(--theme-just-border-focus-color);
+        border: var(--tjust-border-width) solid var(--tjust-border-focus-color);
         box-shadow: none;
       }
 
       &:active {
-        border: var(--theme-just-border-width) solid var(--theme-just-border-active-color);
+        border: var(--tjust-border-width) solid var(--tjust-border-active-color);
         box-shadow: none;
       }
     }

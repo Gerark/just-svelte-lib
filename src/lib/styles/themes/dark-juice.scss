@@ -1,0 +1,13 @@
+@import "../styles";
+
+@include create-theme(
+                "dark-juice",
+                #3f3731, #FFFFFF,
+                #ea861a, #000000,
+                #97cea5, #000000,
+                #06b6d4, #000000,
+                #84cb5d, #000000,
+                #f2ac23, #000000,
+                #d57e78, #000000
+);
+

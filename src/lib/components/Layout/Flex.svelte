@@ -1,22 +1,19 @@
 <script>
-    import flexItems from "./flexItemsLayout.js"
+  import flexItems from "./flexItemsLayout.js";
 
-    export let width = "100%";
-    export let height = "100%";
-    export let gap = "5px";
-    export let flex = [];
-    export let direction = "horizontal";
+  export let width = "100%";
+  export let height = "100%";
+  export let gap = "5px";
+  export let flex = [];
 </script>
 
 <div {...$$restProps}
      class="main {$$restProps.class || ''}"
-     class:horizontal-layout={direction === "horizontal"}
-     class:vertical-layout={direction === "vertical"}
      style:gap="{gap}"
      style:height="{height}"
      style:width="{width}"
      use:flexItems="{flex}">
-    <slot></slot>
+  <slot></slot>
 </div>
 
 <style lang="scss">
@@ -24,19 +21,29 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    color: var(--theme-just-bg-txt-color);
+    color: var(--tjust-bg-txt-color);
   }
 
   .component {
-    background: var(--theme-just-bg-component-color);
+    background: var(--tjust-bg-component-color);
   }
 
   .content {
-    background: var(--theme-just-bg-content-color);
+    background: var(--tjust-bg-content-color);
   }
 
   .background {
-    background: var(--theme-just-bg-color);
+    background: var(--tjust-bg-color);
+  }
+
+  .shadow {
+    box-shadow: 0 0 10px black;
+  }
+
+  .border {
+    border: 1px solid var(--tjust-surface);
+    box-sizing: border-box;
+    overflow: clip;
   }
 
   .scrollable {
@@ -56,15 +63,15 @@
     padding: 5px;
   }
 
-  .vertical-layout {
+  .vertical {
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;
+    align-items: var(--align-items, center);
   }
 
-  .horizontal-layout {
+  .horizontal {
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
+    align-items: var(--align-items, center);
   }
 </style>

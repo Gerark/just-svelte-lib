@@ -4,6 +4,7 @@
     import NumberBox from "$lib/components/TextBox/NumberBox.svelte";
     import EditableList from "$lib/components/EditableList/EditableList.svelte";
     import Select from "$lib/components/Select/Select.svelte";
+    import Button from "$lib/components/Button/Button.svelte";
 
     export let item = {};
     $: store = item.store;
@@ -25,6 +26,10 @@
     </EditableList>
 {:else if item.type === "Enum"}
     <Select items="{$valuesStore}" bind:value="{$store}"></Select>
+{:else if item.type === "Function"}
+    <Button class="btn primary md" on:click={() => { $store(); }}>
+        {item.actionLabel || "Execute"}
+    </Button>
 {/if}
 
 <style lang="scss">
