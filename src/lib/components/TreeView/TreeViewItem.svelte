@@ -1,9 +1,9 @@
 <script>
     import foldClick from "../../actions/foldClick.js";
-    import { createEventDispatcher } from "svelte";
-    import { justTooltip } from "../../actions/tooltip.js";
-    import { slide } from "svelte/transition";
-    import { quintOut } from "svelte/easing";
+    import {createEventDispatcher} from "svelte";
+    import {justTooltip} from "../../actions/tooltip.js";
+    import {slide} from "svelte/transition";
+    import {quintOut} from "svelte/easing";
     import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
 
     export let item = null;
@@ -78,7 +78,7 @@
             {:else}
                 <div class="fa fa-{leafIcon} icon leafIcon"></div>
             {/if}
-            <slot name="item" nodeItem="{item}">
+            <slot nodeItem="{item}">
                 <DefaultTreeViewItemContent {item}></DefaultTreeViewItemContent>
             </slot>
         </div>
@@ -93,7 +93,7 @@
                         on:folderselected
                         on:moveToParent={focus}
                         let:nodeItem>
-                    <slot name="item" slot="item" {nodeItem}>
+                    <slot {nodeItem}>
                         <DefaultTreeViewItemContent item="{nodeItem}"></DefaultTreeViewItemContent>
                     </slot>
                 </svelte:self>

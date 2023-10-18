@@ -1,102 +1,102 @@
 <script>
-  import { clickOutside } from "$lib/actions/clickOutside.js";
-  import SelectDropDown from "$lib/components/Select/SelectDropDown.svelte";
+    import {clickOutside} from "$lib/actions/clickOutside.js";
+    import SelectDropDown from "$lib/components/Select/SelectDropDown.svelte";
 
-  export let items = [];
-  export let value = {};
-  export let dropdownMaxHeight = "auto";
-  export let placeHolderLabel = "Select...";
+    export let items = [];
+    export let value = {};
+    export let dropdownMaxHeight = "auto";
+    export let placeHolderLabel = "Select...";
 
-  let showDropDown = false;
-  let dropDownDiv = null;
-  let currentDropDown = null;
-  let headerElement = null;
+    let showDropDown = false;
+    let dropDownDiv = null;
+    let currentDropDown = null;
+    let headerElement = null;
 
-  $: currentItem = items.find((x) => {
-    return x.value === value;
-  });
-  $: if (dropDownDiv && currentDropDown) {
-    currentDropDown.value = value;
-  }
-
-  function toggleDropDown() {
-    updateDropDown(!showDropDown);
-  }
-
-  function hideDropDown() {
-    updateDropDown(false);
-  }
-
-  function selectItem(event) {
-    value = event.detail.value;
-    hideDropDown();
-  }
-
-  function updateDropDown(newShowDropDown) {
-    let prevValue = showDropDown;
-    showDropDown = newShowDropDown;
-    if (showDropDown != prevValue) {
-      if (showDropDown) {
-        dropDownDiv = document.createElement("div");
-        createDropDown();
-        document.documentElement.appendChild(dropDownDiv);
-        window.addEventListener("scroll", updateDropDownPosition, true);
-      } else if (dropDownDiv) {
-        document.documentElement.removeChild(dropDownDiv);
-        window.removeEventListener("scroll", updateDropDownPosition, true);
-        dropDownDiv = null;
-        currentDropDown = null;
-      }
-    }
-  }
-
-  function createDropDown() {
-    currentDropDown = new SelectDropDown({
-      target: dropDownDiv,
-      props: {
-        items: items,
-        value: value,
-        maxHeight: dropdownMaxHeight
-      }
+    $: currentItem = items.find((x) => {
+        return x.value === value;
     });
-    currentDropDown.$on("itemselect", selectItem);
-    let computedStyle = getComputedStyle(headerElement);
-    let boundingRect = headerElement.getBoundingClientRect();
-    dropDownDiv.style.setProperty("position", "absolute");
-    dropDownDiv.style.setProperty("width", computedStyle.width);
-    dropDownDiv.style.setProperty("top", boundingRect.y + boundingRect.height + "px");
-    dropDownDiv.style.setProperty("left", boundingRect.x + "px");
-    dropDownDiv.style.setProperty("height", computedStyle.height);
-    dropDownDiv.style.setProperty("z-index", 9999);
-  }
+    $: if (dropDownDiv && currentDropDown) {
+        currentDropDown.value = value;
+    }
 
-  function updateDropDownPosition() {
-    let boundingRect = headerElement.getBoundingClientRect();
-    dropDownDiv.style.setProperty("top", boundingRect.y + boundingRect.height + "px");
-    dropDownDiv.style.setProperty("left", boundingRect.x + "px");
-  }
+    function toggleDropDown() {
+        updateDropDown(!showDropDown);
+    }
 
-  function isOutside(node, target) {
-    return (!dropDownDiv || !dropDownDiv.contains(target));
-  }
+    function hideDropDown() {
+        updateDropDown(false);
+    }
+
+    function selectItem(event) {
+        value = event.detail.value;
+        hideDropDown();
+    }
+
+    function updateDropDown(newShowDropDown) {
+        let prevValue = showDropDown;
+        showDropDown = newShowDropDown;
+        if (showDropDown != prevValue) {
+            if (showDropDown) {
+                dropDownDiv = document.createElement("div");
+                createDropDown();
+                document.documentElement.appendChild(dropDownDiv);
+                window.addEventListener("scroll", updateDropDownPosition, true);
+            } else if (dropDownDiv) {
+                document.documentElement.removeChild(dropDownDiv);
+                window.removeEventListener("scroll", updateDropDownPosition, true);
+                dropDownDiv = null;
+                currentDropDown = null;
+            }
+        }
+    }
+
+    function createDropDown() {
+        currentDropDown = new SelectDropDown({
+            target: dropDownDiv,
+            props: {
+                items: items,
+                value: value,
+                maxHeight: dropdownMaxHeight
+            }
+        });
+        currentDropDown.$on("itemselect", selectItem);
+        let computedStyle = getComputedStyle(headerElement);
+        let boundingRect = headerElement.getBoundingClientRect();
+        dropDownDiv.style.setProperty("position", "absolute");
+        dropDownDiv.style.setProperty("width", computedStyle.width);
+        dropDownDiv.style.setProperty("top", boundingRect.y + boundingRect.height + "px");
+        dropDownDiv.style.setProperty("left", boundingRect.x + "px");
+        dropDownDiv.style.setProperty("height", computedStyle.height);
+        dropDownDiv.style.setProperty("z-index", 9999);
+    }
+
+    function updateDropDownPosition() {
+        let boundingRect = headerElement.getBoundingClientRect();
+        dropDownDiv.style.setProperty("top", boundingRect.y + boundingRect.height + "px");
+        dropDownDiv.style.setProperty("left", boundingRect.x + "px");
+    }
+
+    function isOutside(node, target) {
+        return (!dropDownDiv || !dropDownDiv.contains(target));
+    }
 </script>
 
 <div class="just-select"
-     use:clickOutside={{callback: hideDropDown, isEnabled: () => showDropDown, isOutside }}>
-  <div bind:this={headerElement} class="header" on:click={toggleDropDown}
-       on:keydown={toggleDropDown}>
-    <div class="field">
-      {#if currentItem}
-        <slot item={currentItem}>
-          <span>{currentItem.label}</span>
-        </slot>
-      {:else}
-        <span>{placeHolderLabel}</span>
-      {/if}
+     use:clickOutside="{{callback: hideDropDown, isEnabled: () => showDropDown, isOutside }}">
+    <div bind:this={headerElement} class="header" on:click={toggleDropDown}
+         on:keydown={toggleDropDown}>
+        <div class="field">
+            {#if currentItem}
+                <slot item={currentItem}>
+                    <span>{currentItem.label}</span>
+                </slot>
+            {:else}
+                <span>{placeHolderLabel}</span>
+            {/if}
+        </div>
+        <div class="arrow-down" class:rotate="{showDropDown}">
+        </div>
     </div>
-    <div class="arrow-down" class:rotate="{showDropDown}">
-    </div>
-  </div>
 </div>
 
 <style lang="scss">

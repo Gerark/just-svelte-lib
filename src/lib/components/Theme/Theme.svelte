@@ -1,6 +1,6 @@
 <script>
-    import { setContext, onMount } from "svelte";
-    import { writable } from "svelte/store";
+    import {setContext, onMount} from "svelte";
+    import {writable} from "svelte/store";
 
     export let theme = "";
 

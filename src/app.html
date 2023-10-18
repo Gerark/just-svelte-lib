@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link href="/node_modules/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../node_modules/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+    <link href="../node_modules/fontawesome-free/css/brands.css" rel="stylesheet">
+    <link href="../node_modules/fontawesome-free/css/solid.css" rel="stylesheet">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     %sveltekit.head%
 </head>
-<body>
-<div style="display: contents">
-    %sveltekit.body%
-</div>
+<body data-sveltekit-preload-data="hover">
+<div>%sveltekit.body%</div>
 </body>
 </html>
