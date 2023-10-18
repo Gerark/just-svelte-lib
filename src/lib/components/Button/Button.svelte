@@ -71,7 +71,7 @@
       transition: transform var(--tjust-animation-click-duration) ease;
     }
 
-    &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+    &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
       background: var(--tjust-primary-l1);
     }
 
@@ -91,7 +91,7 @@
       color: var(--tjust-on-primary);
       background: var(--tjust-primary);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-primary-l1);
       }
 
@@ -104,7 +104,7 @@
       color: var(--tjust-on-secondary);
       background: var(--tjust-secondary);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-secondary-l1);
       }
 
@@ -117,7 +117,7 @@
       color: var(--tjust-on-surface);
       background: var(--tjust-surface-d2);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-surface-d1);
       }
 
@@ -130,7 +130,7 @@
       color: var(--tjust-on-success);
       background: var(--tjust-success);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-success-l1);
       }
 
@@ -143,7 +143,7 @@
       color: var(--tjust-on-warning);
       background: var(--tjust-warning);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-warning-l1);
       }
 
@@ -156,7 +156,7 @@
       color: var(--tjust-on-error);
       background: var(--tjust-error);
 
-      &:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
         background: var(--tjust-error-l1);
       }
 
