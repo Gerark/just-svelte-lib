@@ -1,10 +1,10 @@
 <script>
-  import flexItems from "./flexItemsLayout.js";
+    import flexItems from "./flexItemsLayout.js";
 
-  export let width = "100%";
-  export let height = "100%";
-  export let gap = "5px";
-  export let flex = [];
+    export let width = "100%";
+    export let height = "100%";
+    export let gap = "5px";
+    export let flex = [];
 </script>
 
 <div {...$$restProps}
@@ -13,7 +13,7 @@
      style:height="{height}"
      style:width="{width}"
      use:flexItems="{flex}">
-  <slot></slot>
+    <slot></slot>
 </div>
 
 <style lang="scss">
@@ -41,9 +41,23 @@
   }
 
   .border {
-    border: 1px solid var(--tjust-surface);
+    border: var(--tjust-border-width) solid var(--tjust-surface);
     box-sizing: border-box;
     overflow: clip;
+  }
+
+  .round-border {
+    border: var(--tjust-border-width) solid var(--tjust-surface);
+    box-sizing: border-box;
+    border-radius: var(--tjust-border-radius);
+    overflow: clip;
+  }
+
+  .hover-state {
+    &:hover {
+      border: var(--tjust-border-width) solid var(--tjust-border-hover-color);
+      background: var(--tjust-bg-hover-color)
+    }
   }
 
   .scrollable {
@@ -61,6 +75,18 @@
 
   .thick {
     padding: 5px;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .justify-start {
+    justify-content: flex-start;
+  }
+
+  .justify-end {
+    justify-content: flex-end;
   }
 
   .vertical {

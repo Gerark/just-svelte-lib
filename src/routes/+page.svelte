@@ -13,6 +13,9 @@
     import '$lib/styles/themes/crimson.scss'
     import '$lib/styles/themes/dark-juice.scss'
     import '$lib/styles/themes/dust.scss'
+    import "./global-styles.scss";
+    import GenericTooltip from "$lib/components/Tooltip/GenericTooltip.svelte";
+    import {genericTooltipStore} from "$lib/components/Tooltip/tooltipStore.js";
 </script>
 
 <Theme theme="{$currentTheme}">
@@ -34,4 +37,6 @@
             </Flex>
         </Panel>
     </Overlay>
+    <GenericTooltip maxWidth="100px" tooltipStore="{genericTooltipStore}">
+    </GenericTooltip>
 </Theme>

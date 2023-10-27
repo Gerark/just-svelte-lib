@@ -1,28 +1,29 @@
 <script>
-  import { quintOut } from "svelte/easing";
-  import { slide } from "svelte/transition";
-  import { createEventDispatcher } from "svelte";
+    import {quintOut} from "svelte/easing";
+    import {fly, slide} from "svelte/transition";
+    import {createEventDispatcher} from "svelte";
+    import Typography from "$lib/components/Typography/Typography.svelte";
 
-  export let items = [];
-  export let value;
-  export let maxHeight = "auto";
+    export let items = [];
+    export let value;
+    export let maxHeight = "auto";
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 </script>
 
-<svelte:options accessors />
+<svelte:options accessors/>
 
 <div class="dropdown"
      style:max-height="{maxHeight}"
-     transition:slide={{ duration: 125, axis: "y", easing: quintOut }}>
-  {#each items as item}
-    <div class="item" on:click={() => dispatch("itemselect", item)} on:keydown={() => dispatch("itemselect", item)}
-         class:selected={item.value === value}>
-      <slot {item}>
-        <span>{item.label}</span>
-      </slot>
-    </div>
-  {/each}
+     transition:slide|local={{ duration: 125, opacity: 0, axis: 'y', easing: quintOut }}>
+    {#each items as item,index}
+        <div class="item" on:click={() => dispatch("itemselect", item)} on:keydown={() => dispatch("itemselect", item)}
+             class:selected={item.value === value} role="menuitem" tabindex="0">
+            <slot {item}>
+                <Typography tabindex="{index}">{item.label}</Typography>
+            </slot>
+        </div>
+    {/each}
 </div>
 
 <style lang="scss">
@@ -32,6 +33,8 @@
     color: var(--tjust-txt-default-color);
     border: var(--tjust-border-width) solid var(--tjust-border-default-color);
     border-radius: var(--tjust-border-radius);
+    box-sizing: border-box;
+    box-shadow: 0 0 10px black;
 
     z-index: 99999;
     display: flex;
@@ -42,6 +45,7 @@
     font-size: var(--tjust-font-size-sm);
     user-select: none;
     overflow: auto;
+    scrollbar-gutter: stable;
 
     .item {
       box-sizing: border-box;

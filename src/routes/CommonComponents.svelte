@@ -1,7 +1,6 @@
 <script>
     import Flex from "$lib/components/Layout/Flex.svelte";
     import Label from "$lib/components/Label/Label.svelte";
-    import Select from "$lib/components/Select/Select.svelte";
     import NumberBox from "$lib/components/TextBox/NumberBox.svelte";
     import TextBox from "$lib/components/TextBox/TextBox.svelte";
     import CheckBox from "$lib/components/CheckBox/CheckBox.svelte";
@@ -17,11 +16,11 @@
     import {writable} from "svelte/store";
     import Typography from "$lib/components/Typography/Typography.svelte";
     import Panel from "$lib/components/Layout/Panel.svelte";
-
+    import Select from "$lib/components/Select/Select.svelte";
 
     let options = [
         {id: 0, label: "Option 1", value: 0},
-        {id: 1, label: "Option 2", value: 1},
+        {id: 1, label: "Option 2 sada sd asas ads as saas asasasd asasd asd asas asdas sadad as", value: 1},
         {id: 2, label: "Option 3", value: 2},
         {id: 3, label: "Option 4", value: 3},
         {id: 4, label: "Option 5", value: 4}
@@ -52,6 +51,27 @@
         {src: "https://random.dog/8c7176cb-97d8-4a97-925f-4721ae7aa32c.jpg", highlighted: true},
         {src: "https://random.dog/46be3661-2d29-4119-8841-baa86c4a73ba.jpg"}
     ]);
+
+    export function addClass(node, classes) {
+        classes.forEach((styleClass) => {
+            node.classList.add(styleClass);
+        });
+
+        return {
+            destroy() {
+                classes.forEach((styleClass) => {
+                    node.classList.remove(styleClass);
+                });
+            }
+        };
+    }
+
+    let cardActions = [
+        {
+            run: addClass,
+            params: ["card-test"]
+        }
+    ];
 
     let texts = [
         "size-2xl align-left",
@@ -92,11 +112,13 @@
         <div style:max-height="300px" style:min-height="300px" style:width="100%">
             <HeaderBox title="Inputs">
                 <svelte:fragment slot="content">
-                    <TextBox bind:value={textboxValue} canReset="{true}" defaultIcon="circle"
+                    <TextBox bind:value={textboxValue} canReset="{true}" class="lg" defaultIcon="circle"
                              placeHolderText="Textbox Component..."></TextBox>
                     <NumberBox bind:value={numberValue} canReset="{false}"
                                placeHolderText="NumberBox Component..."></NumberBox>
-                    <Select bind:value={currentOption} dropdownMaxHeight="100px" items="{options}"></Select>
+                    <Select bind:value={currentOption} dropdownMaxHeight="100px" items="{options}" let:item>
+                        <Typography class="size-md overflow-ellipsis align-left" width="100%">{item.label}</Typography>
+                    </Select>
                     <CheckBox bind:value={checkboxValue} label="Shadow Checkbox"></CheckBox>
                     <Image class="{checkboxValue ? 'shadow' : ''} sm" source="https://shorturl.at/hmnpF"></Image>
                     <Image class="{checkboxValue ? 'shadow' : ''} md" source="https://shorturl.at/hmnpF"></Image>
@@ -170,7 +192,9 @@
                                 <Grid columnSize="100px">
                                     {#each $cards as card, index}
                                         <Flex class="vertical" width="100%" height="100%">
-                                            <Card height="100%" width="100%">
+                                            <Card height="100%" width="100%" actions="{[
+                                                 {run: addClass, params: []}
+                                                ]}">
                                                 <Typography slot="header"
                                                             class="size-2xs align-center overflow-ellipsis"
                                                             width="100%">CARD

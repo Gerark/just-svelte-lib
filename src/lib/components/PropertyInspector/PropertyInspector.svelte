@@ -1,33 +1,34 @@
 <script>
-  import Label from "$lib/components/Label/Label.svelte";
-  import Flex from "$lib/components/Layout/Flex.svelte";
-  import HeaderBox from "$lib/components/Layout/HeaderBox.svelte";
+    import Label from "$lib/components/Label/Label.svelte";
+    import HeaderBox from "$lib/components/Layout/HeaderBox.svelte";
+    import {genericTooltip} from "$lib/actions/tooltip.js";
 
-  export let item = "";
-  export let title;
-  export let height = "100%";
-  export let width = "100%";
+    export let item = "";
+    export let title;
+    export let height = "100%";
+    export let width = "100%";
 </script>
 
 <HeaderBox {height} {title} {width}>
-  <div class="grid" slot="content">
-    <div class="element header">
-      <Label>Property</Label>
-    </div>
-    <div class="element header">
-      <Label>Value</Label>
-    </div>
-    {#each Object.entries(item) as item, index}
-      <div class="element propertyName">
-        <div class="name">
-          <slot name="name" key="{item[0]}"></slot>
+    <div class="grid" slot="content">
+        <div class="element header">
+            <Label>Property</Label>
         </div>
-      </div>
-      <div class="element propertyValue">
-        <slot name="value" key="{item[0]}" {index} value="{item[1]}"></slot>
-      </div>
-    {/each}
-  </div>
+        <div class="element header">
+            <Label>Value</Label>
+        </div>
+        {#each Object.entries(item) as item, index}
+            <div class="element propertyName"
+                 use:genericTooltip={{content: item[1].description}}>
+                <div class="name">
+                    <slot name="name" key="{item[0]}"></slot>
+                </div>
+            </div>
+            <div class="element propertyValue">
+                <slot name="value" key="{item[0]}" {index} value="{item[1]}"></slot>
+            </div>
+        {/each}
+    </div>
 </HeaderBox>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 @use "sass:color";
 @use "sass:list";
 @use "sass:map";
-@import 'tippy.js/dist/svg-arrow.css';
+@use "sass:math";
 
 @mixin create-theme($theme,
     $surface, $onSurface,
@@ -83,6 +83,7 @@
     --tjust-padding-thin: var(--tjust-padding-xs);
 
     --tjust-border-width: 2px;
+    --tjust-border-width-xs: 2px;
     --tjust-border-width-sm: 3px;
     --tjust-border-width-md: 4px;
     --tjust-border-width-lg: 5px;
@@ -97,6 +98,39 @@
       position: absolute;
       z-index: 9000;
       animation: top 0.125s;
+    }
+
+    // flex
+
+    .flex-h {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    .flex-v {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+
+    $sizes: ('3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl');
+
+    @include gaps($sizes, 'px', 1, 30, get-function(custom));
+    @include gaps($sizes, 'px', 1, 30, get-function(custom));
+
+
+    .panel {
+      background: var(--tjust-surface-d3);
+      border: var(--tjust-border-width-xs) solid var(--tjust-border-default-color);
+      border-radius: var(--tjust-border-radius);
+    }
+
+    .panel-hover:hover {
+      background: var(--tjust-bg-hover-color);
+      border: var(--tjust-border-width-xs) solid var(--tjust-border-hover-color);
+    }
+
+    .panel-shadow {
+      box-shadow: 0 0 10px black;
     }
 
     ::-webkit-scrollbar {
@@ -134,111 +168,22 @@
   }
 }
 
-//Tippyjs tooltip theme
-
-.tippy-box[data-theme='just'][data-animation=fade][data-state=hidden] {
-  opacity: 0
+@mixin gap($tag, $val, $unit) {
+  --tjust-gap-#{$tag}: #{$val}#{$unit};
+  .gap-#{$tag} {
+    gap: var(--tjust-gap-#{$tag});
+  }
 }
 
-[data-tippy-root] {
-  max-width: calc(100vw - 10px)
+@mixin gaps($sizes, $unit, $start, $end, $stepFunction) {
+  $size: list.length($sizes);
+  @for $i from 0 through $size - 1 {
+    $tag: list.nth($sizes, $i + 1);
+    $val: interpolate($stepFunction, $start, $end, calc(($i) / ($size - 1)), $unit == "px");
+    
+    @include gap($tag, $val, $unit)
+  }
 }
-
-.tippy-box[data-theme='just'] {
-  position: relative;
-  background-color: var(--tjust-bg-component-color);
-  color: var(--tjust-txt-default-color);
-  border-radius: 0;
-  font-family: "Lucida Sans", serif;
-  font-size: 14px;
-  line-height: 1.4;
-  white-space: normal;
-  outline: 0;
-  padding: 5px;
-  transition-property: transform, visibility, opacity;
-  border: 0 solid #9e9e9e;
-  box-shadow: 0 0 20px 1px var(--tjust-bg-color);
-}
-
-.tippy-box[data-theme='just'][data-placement^=top] > .tippy-arrow {
-  bottom: 0
-}
-
-.tippy-box[data-theme='just'][data-placement^=top] > .tippy-arrow:before {
-  bottom: -7px;
-  left: 0;
-  border-width: 8px 8px 0;
-  border-top-color: initial;
-  transform-origin: center top
-}
-
-.tippy-box[data-theme='just'][data-placement^=bottom] > .tippy-arrow {
-  top: 0
-}
-
-.tippy-box[data-theme='just'][data-placement^=bottom] > .tippy-arrow:before {
-  top: -7px;
-  left: 0;
-  border-width: 0 8px 8px;
-  border-bottom-color: initial;
-  transform-origin: center bottom
-}
-
-.tippy-box[data-theme='just'][data-placement^=left] > .tippy-arrow {
-  right: 0
-}
-
-.tippy-box[data-theme='just'][data-placement^=left] > .tippy-arrow:before {
-  border-width: 8px 0 8px 8px;
-  border-left-color: initial;
-  right: -7px;
-  transform-origin: center left
-}
-
-.tippy-box[data-theme='just'][data-placement^=right] > .tippy-arrow {
-  left: -10px
-}
-
-.tippy-box[data-theme='just'][data-placement^=right] > .tippy-arrow:before {
-  left: -7px;
-  border-width: 8px 8px 8px 0;
-  border-right-color: initial;
-  transform-origin: center right
-}
-
-.tippy-box[data-theme='just'][data-inertia][data-state=visible] {
-  transition-timing-function: cubic-bezier(.54, 1.5, .38, 1.11)
-}
-
-.tippy-arrow[data-theme='just'] {
-  width: 16px;
-  height: 16px;
-  color: #9e9e9e00;
-}
-
-.tippy-arrow[data-theme='just']:before {
-  content: "";
-  position: absolute;
-  border-color: transparent;
-  border-style: solid
-}
-
-.tippy-content[data-theme='just'] {
-  position: relative;
-  z-index: 1
-}
-
-.tippy-box[data-theme='just'] .tippy-svg-arrow {
-  fill: #383838;
-}
-
-.just-tooltip-content {
-  padding: 10px;
-  background-color: var(--tjust-bg-content-color);
-  margin: 0;
-  text-align: start;
-}
-
 
 @mixin setup-dark-color-theme($name, $color, $lightness, $useLightTheme) {
   @for $i from 4 through 1 {
@@ -246,7 +191,11 @@
     @if $useLightTheme {
       --tjust-#{$name}-l#{$i}: #{darken($color, $var)};
     } @else {
-      --tjust-#{$name}-d#{$i}: #{darken($color, $var)};
+      $suffix: #{$name}-d#{$i};
+      --tjust-#{$suffix}: #{darken($color, $var)};
+      .tjust-bkg-#{$name}-d#{$i} {
+        background: var(--tjust-#{$suffix});
+      }
     }
   }
 }
@@ -257,7 +206,11 @@
     @if $useLightTheme {
       --tjust-#{$name}-d#{$i}: #{lighten($color, $var)};
     } @else {
+      $suffix: #{$name}-d#{$i};
       --tjust-#{$name}-l#{$i}: #{lighten($color, $var)};
+      .tjust-bkg-#{$name}-d#{$i} {
+        background: var(--tjust-#{$suffix});
+      }
     }
   }
 }
@@ -266,6 +219,39 @@
   $lightness: color.lightness($color);
   @include setup-dark-color-theme($name, $color, $lightness, $useLightTheme);
   --tjust-#{$name}: #{$color};
+  .tjust-bkg-#{$name} {
+    background: var(--tjust-#{name});
+  }
   @include setup-light-color-theme($name, $color, $lightness, $useLightTheme);
   --tjust-on-#{$name}: #{$onColor};
+}
+
+@function interpolate($easeFunction, $start, $end, $val, $round) {
+  $result: ($start + (($end - $start) * call($easeFunction, $val)));
+  $result: math.round($result);
+  @return $result;
+}
+
+@function linear($val) {
+  @return $val;
+}
+
+@function easeInOutQuad($val) {
+  @if $val < 0.5 {
+    @return 2 * $val * $val;
+  }
+
+  $temp: math.pow((-2 * $val) + 2, 2);
+  @return 1 - calc($temp / 2);
+}
+
+@function custom($val) {
+  $exp: 0.5;
+  @if $val <= 0.5 {
+    $v: math.pow($val * 2, $exp);
+    @return calc($v / 2);
+  }
+
+  $v: math.pow(2 - $val * 2, $exp);
+  @return 1 - calc($v / 2);
 }

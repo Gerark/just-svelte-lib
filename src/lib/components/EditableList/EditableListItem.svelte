@@ -1,31 +1,31 @@
 <script>
-  import ButtonToolbar from "$lib/components/Button/ButtonToolbar.svelte";
-  import { createEventDispatcher } from "svelte";
+    import ButtonToolbar from "$lib/components/Button/ButtonToolbar.svelte";
+    import {createEventDispatcher} from "svelte";
 
-  export let item;
-  export let actions = [];
-  export let isDragging = false;
+    export let item;
+    export let actions = [];
+    export let isDragging = false;
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  function dispatchGripDown(event) {
-    dispatch("gripdown");
-  }
+    function dispatchGripDown(event) {
+        dispatch("gripdown");
+    }
 
-  function dispatchGripUp(event) {
-    dispatch("gripup");
-  }
+    function dispatchGripUp(event) {
+        dispatch("gripup");
+    }
 </script>
 
 <div class="list-item">
-  <div class="fa fa-grip-vertical grip" on:mousedown={dispatchGripDown} on:mouseup={dispatchGripUp}
-       style:cursor="{isDragging ? 'grabbing' : 'grab'}"></div>
-  <div class="content">
-    <slot></slot>
-  </div>
-  <div>
-    <ButtonToolbar context="{item}" direction="horizontal" items="{actions}"></ButtonToolbar>
-  </div>
+    <div class="fa fa-grip-vertical grip" on:mousedown={dispatchGripDown} on:mouseup={dispatchGripUp}
+         role="button" style:cursor="{isDragging ? 'grabbing' : 'grab'}" tabindex="0"></div>
+    <div class="content">
+        <slot></slot>
+    </div>
+    <div>
+        <ButtonToolbar context="{item}" direction="horizontal" items="{actions}"></ButtonToolbar>
+    </div>
 </div>
 
 <style lang="scss">

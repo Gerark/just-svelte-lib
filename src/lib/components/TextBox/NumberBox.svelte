@@ -1,43 +1,43 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+    import {createEventDispatcher} from "svelte";
 
-  export let placeHolderText = "";
-  export let value = 0;
-  export let inputElement = null;
-  export let canReset = false;
-  export let defaultIcon = "";
+    export let placeHolderText = "";
+    export let value = 0;
+    export let inputElement = null;
+    export let canReset = false;
+    export let defaultIcon = "";
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  $: hasValue = value && value !== "";
-  $: showIcon = (hasValue && canReset) || (!hasValue && defaultIcon !== "");
+    $: hasValue = value && value !== "";
+    $: showIcon = (hasValue && canReset) || (!hasValue && defaultIcon !== "");
 
-  function reset() {
-    if (canReset) {
-      value = 0;
+    function reset() {
+        if (canReset) {
+            value = 0;
+        }
     }
-  }
 
-  function onInput(event) {
-    dispatch("valuechanged", event.target.value);
-  }
+    function onInput(event) {
+        dispatch("valuechanged", event.target.value);
+    }
 </script>
 
 <div class="main {$$restProps.class}">
-  <input bind:this={inputElement}
-         bind:value={value}
-         class="focusable"
-         on:click|stopPropagation
-         on:input={onInput}
-         on:keydown
-         on:mousedown|stopPropagation placeholder="{placeHolderText}"
-         style:padding-left="{showIcon ? '30px' : '10px'}"
-         type="number">
-  {#if !hasValue && defaultIcon !== ""}
-    <i class="fas fa-{defaultIcon}" class:clickable={hasValue && canReset}></i>
-  {:else if hasValue && canReset}
-    <i class="fas fa-times clickable" on:click={reset} on:keydown={reset}></i>
-  {/if}
+    <input bind:this={inputElement}
+           bind:value={value}
+           class="focusable"
+           on:click|stopPropagation
+           on:input={onInput}
+           on:keydown
+           on:mousedown|stopPropagation placeholder="{placeHolderText}"
+           style:padding-left="{showIcon ? '30px' : '10px'}"
+           type="number">
+    {#if !hasValue && defaultIcon !== ""}
+        <i class="fas fa-{defaultIcon}" class:clickable={hasValue && canReset}></i>
+    {:else if hasValue && canReset}
+        <i class="fas fa-times clickable" on:click={reset} on:keydown={reset} role="button" tabindex="0"></i>
+    {/if}
 </div>
 
 <style lang="scss">

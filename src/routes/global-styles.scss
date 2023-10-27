@@ -1,0 +1,10 @@
+
+.card-test {
+  scale: 1;
+  transition: scale 0.125s ease-out;
+
+  &:hover {
+    scale: 1.5;
+    z-index: 100;
+  }
+}

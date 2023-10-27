@@ -1,10 +1,10 @@
 <script>
     import foldClick from "../../actions/foldClick.js";
     import {createEventDispatcher} from "svelte";
-    import {justTooltip} from "../../actions/tooltip.js";
     import {slide} from "svelte/transition";
     import {quintOut} from "svelte/easing";
     import DefaultTreeViewItemContent from "$lib/components/TreeView/DefaultTreeViewItemContent.svelte";
+    import {genericTooltip} from "$lib/actions/tooltip.js";
 
     export let item = null;
     export let depth = 0;
@@ -17,7 +17,7 @@
     $: paddingLeft = depth * 10 + (depth === 0 || isFolder ? 0 : 14);
     $: leafIcon = !item.icon || item.icon === "" ? "square" : item.icon;
 
-    $: tooltipAction = !isFolder ? justTooltip : () => {
+    $: genericTooltipAction = !isFolder ? genericTooltip : () => {
     };
 
     function toggleFold() {
@@ -65,7 +65,7 @@
     }
 </script>
 
-<div class="tree-view-item" use:tooltipAction={item.description}>
+<div class="tree-view-item" use:genericTooltipAction={{content: item.description}}>
     <div bind:this={headerElement} class="header-bkg focusable" on:keydown={onKeyDown}
          role="button"
          tabindex="{-1}"

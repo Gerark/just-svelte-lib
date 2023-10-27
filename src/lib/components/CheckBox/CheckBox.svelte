@@ -1,27 +1,28 @@
 <script>
-  import Label from "$lib/components/Label/Label.svelte";
-  import Flex from "$lib/components/Layout/Flex.svelte";
+    import Label from "$lib/components/Label/Label.svelte";
+    import Flex from "$lib/components/Layout/Flex.svelte";
 
-  export let value;
+    export let value;
 
-  export let label = "";
+    export let label = "";
 
-  function toggleValue() {
-    value = !value;
-  }
+    function toggleValue() {
+        value = !value;
+    }
 </script>
 
 <Flex class="thick horizontal" height="auto" width="100%">
-  {#if label !== ""}
-    <Label>{label}</Label>
-  {/if}
-  <div class="checkbox" on:keydown={toggleValue} on:mousedown={toggleValue}>
-    {#if value}
-      <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.1 27.2 l7.1 7.2 16.7-16.8" fill="none" />
-      </svg>
+    {#if label !== ""}
+        <Label>{label}</Label>
     {/if}
-  </div>
+    <div aria-checked="{value}" class="checkbox" on:keydown={toggleValue} on:mousedown={toggleValue} role="checkbox"
+         tabindex="0">
+        {#if value}
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.1 27.2 l7.1 7.2 16.7-16.8" fill="none"/>
+            </svg>
+        {/if}
+    </div>
 </Flex>
 
 <style lang="scss">

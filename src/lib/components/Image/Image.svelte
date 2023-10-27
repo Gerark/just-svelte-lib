@@ -1,9 +1,12 @@
 <script>
-  export let source = "";
-  export let alt = "";
+    import {useWrapper} from "$lib/actions/useWrapper.js";
+
+    export let source = "";
+    export let alt = "";
+    export let actions = [];
 </script>
 
-<img alt="{alt}" class="{$$restProps.class || ''}" src="{source}">
+<img alt="{alt}" class="{$$restProps.class || ''}" src="{source}" use:useWrapper={actions}>
 
 <style lang="scss">
   img {

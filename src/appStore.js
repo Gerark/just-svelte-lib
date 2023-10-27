@@ -7,24 +7,39 @@ export const configuration = writable([
 	{
 		id: 0,
 		label: 'Bool Property with a long name just to test if everything works as expected',
-		store: writable(false)
+		store: writable(false),
+		description: 'Tooltip Text'
 	},
-	{ id: 1, label: 'String Property', type: 'Text', store: writable('') },
+	{
+		id: 1,
+		label: 'String Property',
+		type: 'Text',
+		store: writable(''),
+		description: 'Tooltip Text'
+	},
 	{
 		id: 2,
 		label: 'Select Theme',
 		type: 'Enum',
 		values: allThemes,
-		store: currentTheme
+		store: currentTheme,
+		description: 'Tooltip Text'
 	},
-	{ id: 3, label: 'Number Property', type: 'Number', store: writable(10) },
+	{
+		id: 3,
+		label: 'Number Property',
+		type: 'Number',
+		store: writable(10),
+		description: 'Tooltip Text'
+	},
 	{
 		id: 4,
 		label: 'Function Property',
 		type: 'Function',
 		store: writable(() => {
 			console.log('FUNCTION CALL');
-		})
+		}),
+		description: 'Tooltip Text'
 	},
 	{
 		id: 5,
@@ -43,7 +58,8 @@ export const configuration = writable([
 		listUpdated: (event) => {
 			allThemes.set(event.detail);
 		},
-		store: allThemes
+		store: allThemes,
+		description: 'Tooltip Text'
 	}
 ]);
 
@@ -79,7 +95,8 @@ export const fakeData = writable([
 					}
 				]
 			}
-		]
+		],
+		description: 'Tooltip Text'
 	},
 	{
 		id: 1,
@@ -101,7 +118,8 @@ export const fakeData = writable([
 					}
 				]
 			}
-		]
+		],
+		description: 'Tooltip Text'
 	},
 	{
 		id: 2,
@@ -134,7 +152,8 @@ export const fakeData = writable([
 					}
 				]
 			}
-		]
+		],
+		description: 'Tooltip Text'
 	},
 	{
 		id: 3,
@@ -189,6 +208,7 @@ export const fakeData = writable([
 					}
 				]
 			}
-		]
+		],
+		description: 'Tooltip Text'
 	}
 ]);

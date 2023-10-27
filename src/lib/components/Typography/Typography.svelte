@@ -1,16 +1,15 @@
 <script>
-  export let width = "auto";
+    export let width = "auto";
 </script>
 
 <p class="{$$restProps.class || ''}" style:width="{width}">
-  <slot></slot>
+    <slot></slot>
 </p>
 
 <style lang="scss">
   p {
     margin-block-start: 0;
     margin-block-end: 0;
-    color: var(--tjust-txt-default-color);
   }
 
   .overflow-ellipsis {

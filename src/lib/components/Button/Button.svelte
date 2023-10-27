@@ -1,54 +1,63 @@
 <script>
-  import { justTooltip } from "$lib/actions/tooltip.js";
-  import { createEventDispatcher } from "svelte";
+    import {genericTooltip} from "$lib/actions/tooltip.js";
+    import {createEventDispatcher} from "svelte";
+    import {useWrapper} from "$lib/actions/useWrapper.js";
 
-  export let tooltip = "";
-  export let enabled = true;
-  export let highlighted = false;
+    export let tooltip = "";
+    export let enabled = true;
+    export let highlighted = false;
+    export let width = "auto";
+    export let height = "auto";
+    export let actions = [];
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  function onClick(ev) {
-    if (enabled) {
-      dispatch("click");
+    function onClick() {
+        if (enabled) {
+            dispatch("click");
+        }
     }
-  }
 
-  function onDblClick(ev) {
-    if (enabled) {
-      dispatch("dblclick");
+    function onDblClick() {
+        if (enabled) {
+            dispatch("dblclick");
+        }
     }
-  }
 
-  function onMouseEnter(ev) {
-    if (enabled) {
-      highlighted = true;
-      dispatch("mouseenter");
+    function onMouseEnter() {
+        if (enabled) {
+            highlighted = true;
+            dispatch("mouseenter");
+        }
     }
-  }
 
-  function onMouseExit(ev) {
-    if (enabled) {
-      highlighted = false;
-      dispatch("mouseleave");
+    function onMouseExit() {
+        if (enabled) {
+            highlighted = false;
+            dispatch("mouseleave");
+        }
     }
-  }
 </script>
 
 <div class="common {$$restProps.class || ''}" class:enabled
      data-highlighted="{highlighted}"
      on:click={onClick}
      on:dblclick={onDblClick}
+     on:keydown={onClick}
      on:mouseenter={onMouseEnter}
      on:mouseleave={onMouseExit}
-     use:justTooltip={tooltip}>
-  <slot></slot>
+     role="button"
+     style:height="{height}"
+     style:width="{width}"
+     tabindex="0"
+     use:genericTooltip={{popupId: "global-tooltip", mode: "hover", content: tooltip}}
+     use:useWrapper={actions}>
+    <slot></slot>
 </div>
 
 <style lang="scss">
   .common {
-    width: var(--width, auto);
-    height: var(--height, auto);
+    position: relative;
     display: inline-flex;
     gap: var(--tjust-gap-default);
     font-family: var(--tjust-font-family);
@@ -114,6 +123,19 @@
     }
 
     &.flat {
+      color: var(--tjust-on-surface);
+      background: var(--tjust-surface-d2);
+
+      &[data-highlighted=false]:hover:is(.enabled), &[data-highlighted=true]:is(.enabled) {
+        background: var(--tjust-surface-d1);
+      }
+
+      &:active:is(.enabled) {
+        background: var(--tjust-surface-d2);
+      }
+    }
+
+    &.surface {
       color: var(--tjust-on-surface);
       background: var(--tjust-surface-d2);
 
@@ -217,6 +239,10 @@
       }
 
       &.flat {
+        padding: 0;
+      }
+
+      &.no-padding {
         padding: 0;
       }
     }

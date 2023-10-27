@@ -1,5 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import {createEventDispatcher} from "svelte";
 
     export let placeHolderText = "";
     export let value = "";
@@ -36,7 +36,7 @@
     {#if !hasValue && defaultIcon !== ""}
         <i class="fas fa-{defaultIcon}" class:clickable={hasValue && canReset}></i>
     {:else if hasValue && canReset}
-        <i class="fas fa-times clickable" on:click={reset} on:keydown={reset}></i>
+        <i class="fas fa-times clickable" on:click={reset} on:keydown={reset} role="button" tabindex="0"></i>
     {/if}
 </div>
 
@@ -55,6 +55,36 @@
       color: var(--tjust-icon-default-color);
     }
 
+    &.xs {
+      input {
+        font-size: var(--tjust-font-size-xs);
+      }
+    }
+
+    &.sm {
+      input {
+        font-size: var(--tjust-font-size-sm);
+      }
+    }
+
+    &.md {
+      input {
+        font-size: var(--tjust-font-size-md);
+      }
+    }
+
+    &.lg {
+      input {
+        font-size: var(--tjust-font-size-lg);
+      }
+    }
+
+    &.xl {
+      input {
+        font-size: var(--tjust-font-size-xl);
+      }
+    }
+
     .clickable:hover {
       color: var(--tjust-icon-hover-color);
     }
@@ -65,7 +95,7 @@
       border-radius: var(--tjust-border-radius);
       color: var(--tjust-txt-default-color);
       text-align: left;
-      height: 20px;
+      height: auto;
       width: 100%;
       font-size: var(--tjust-font-size-sm);
 
