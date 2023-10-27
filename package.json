@@ -1,6 +1,6 @@
 {
   "name": "@gerark/just-svelte-lib",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
